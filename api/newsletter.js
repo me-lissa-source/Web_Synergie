@@ -38,11 +38,14 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         email: email.trim(),
+        // systeme.io lehnt leere Werte in "fields" ab (Fehler "should not be
+        // blank"), deshalb werden nur tatsaechlich ausgefuellte Felder
+        // mitgeschickt - Nom und Telephone sind im Formular facultatif.
         fields: [
           { slug: 'first_name', value: (prenom || '').trim() },
           { slug: 'surname', value: (nom || '').trim() },
           { slug: 'phone_number', value: (telephone || '').trim() },
-        ],
+        ].filter((field) => field.value !== ''),
       }),
     });
 
