@@ -65,6 +65,7 @@
     .bio-photo { grid-column: auto !important; grid-row: auto !important; align-self: auto !important; order: 1 !important; }
     .bio-body { grid-column: auto !important; grid-row: auto !important; order: 2 !important; }
     .bio-encart { grid-column: auto !important; order: 3 !important; }
+    .cadre-box { padding: 0 !important; background: none !important; border: none !important; border-radius: 0 !important; margin-top: 40px !important; }
     .kicker-sep { display: none !important; }
     [style*="min-height: 340px"] { min-height: 420px !important; }
     [style*="padding: 48px 48px 44px"] { padding: 40px 36px !important; }
@@ -367,7 +368,7 @@
           </div>
         </div>
       </div>
-      <div style="margin-top: 56px; padding: 48px 56px; border-radius: 28px; background: linear-gradient(155deg, #FCF9F2 0%, #FAF6EC 100%); border: 1px solid #F2EADC">
+      <div class="cadre-box" style="margin-top: 56px; padding: 48px 56px; border-radius: 28px; background: linear-gradient(155deg, #FCF9F2 0%, #FAF6EC 100%); border: 1px solid #F2EADC">
         <div style="height: 3px; width: 96px; border-radius: 999px; background-image: linear-gradient(90deg, #C4441A 0%, #F5A62E 100%)"></div>
         <div style="margin-top: 26px; display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 48px; align-items: start">
           <div>
@@ -378,7 +379,7 @@
             <p style="margin: 0; font-size: 17px; line-height: 1.75; color: #4A403B; text-wrap: pretty">Je souhaite préserver des espaces où je peux réellement être présente pour chacun·e, écouter et adapter mes propositions.</p>
             <p style="margin: 0; font-size: 17px; line-height: 1.75; color: #4A403B; text-wrap: pretty">En Sweet Yoga, cela signifie pouvoir accompagner un placement ou proposer une adaptation. Dans les ateliers créatifs, cela me permet de prendre le temps d’écouter et de laisser à chacun·e son espace. Dans les autres pratiques, cela permet de préserver <strong style="font-weight: 500; color: #2B2220">une qualité de présence et une atmosphère propices à l’expérience</strong>.</p>
             <p style="margin: 0; font-size: 17px; line-height: 1.75; color: #4A403B; text-wrap: pretty">Tu peux venir découvrir un atelier ponctuellement. Mais si tu choisis de revenir régulièrement, je peux mieux connaître ton cheminement et créer <strong style="font-weight: 500; color: #2B2220">une véritable continuité d’un atelier à l’autre</strong>.</p>
-            <p style="margin: 6px 0 0; padding-left: 20px; border-left: 2px solid #DCC9A8; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 20px; line-height: 1.6; color: #5F7A3B">C’est cette qualité de relation et d’accompagnement que je souhaite préserver.</p>
+            <p style="margin: 6px 0 0; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 20px; line-height: 1.6; color: #5F7A3B">C’est cette qualité de relation et d’accompagnement que je souhaite préserver.</p>
           </div>
         </div>
       </div>
@@ -493,7 +494,15 @@
 <script type="text/javascript">
   // SimplyBook.me Booking-Button erst laden, sobald der Marker nach Flow Découverte im Viewport erscheint
   // (Melissas Vorgabe: nicht schon im Hero-Bild anzeigen)
+  //
+  // AKTUELL DEAKTIVIERT (29.08.2026): Reservierungen laufen ueber HelloAsso,
+  // SimplyBook.me wird nicht mehr verwendet. Der Code bleibt komplett erhalten -
+  // zum Reaktivieren einfach die naechste Zeile auf "true" setzen.
+  var SIMPLYBOOK_AKTIV = false;
+
   (function () {
+    if (!SIMPLYBOOK_AKTIV) return;
+
     var atelierSection = document.getElementById('booking-trigger');
     var widgetLoaded = false;
 
