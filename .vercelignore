@@ -3,3 +3,4 @@ Input/
 *.docx
 *.pdf
 *.csv
+*.backup-*
