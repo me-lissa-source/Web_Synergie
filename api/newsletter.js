@@ -10,6 +10,28 @@
 // aus mehreren unabhaengigen Quellen bestaetigt. Bitte beim ersten Test genau
 // pruefen, ob Vorname/Nachname korrekt in systeme.io ankommen - falls nicht,
 // muss nur der "fields"-Teil unten angepasst werden, der Rest bleibt gleich.
+//
+// SPAM-BREMSE (ergaenzt 31.08.2026):
+// - Honeypot-Feld "site": bei Menschen immer leer, Bots fuellen es meist aus.
+// - Zeitfalle "ts": Formular in unter 3 Sekunden abgeschickt = verdaechtig.
+//   Beides wird mit 200 OK aber ohne echten Systeme.io-Eintrag beantwortet,
+//   damit ein Bot keinen Fehler sieht und es erneut versucht.
+// - Rate-Limit pro IP: einfache In-Memory-Zaehlung. WICHTIG: Vercel-Funktionen
+//   sind zustandslos und koennen ueber mehrere Instanzen laufen - das ist eine
+//   Bremse, keine Garantie. Fuer dieses Projektvolumen reicht das; bei mehr
+//   Traffic braeuchte es einen externen Speicher (z.B. Vercel KV).
+
+const NEWSLETTER_LIMIT = 3;               // max. Anmeldungen
+const NEWSLETTER_WINDOW_MS = 60 * 60 * 1000; // pro Stunde
+const requestLog = new Map(); // ip -> [Zeitstempel, ...]
+
+function istZuSchnell(ip) {
+  const jetzt = Date.now();
+  const bisherige = (requestLog.get(ip) || []).filter((t) => jetzt - t < NEWSLETTER_WINDOW_MS);
+  bisherige.push(jetzt);
+  requestLog.set(ip, bisherige);
+  return bisherige.length > NEWSLETTER_LIMIT;
+}
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -17,9 +39,24 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Méthode non autorisée.' });
   }
 
-  const { prenom, nom, email, telephone } = req.body || {};
+  const { prenom, nom, email, telephone, site, ts } = req.body || {};
 
-  if (!email || typeof email !== 'string' || !email.includes('@')) {
+  // Honeypot: nur Bots fuellen dieses unsichtbare Feld aus.
+  if (site) {
+    return res.status(200).json({ ok: true });
+  }
+
+  // Zeitfalle: ein Mensch braucht mehr als 3 Sekunden fuer das Formular.
+  if (typeof ts === 'number' && ts < 3000) {
+    return res.status(200).json({ ok: true });
+  }
+
+  const ip = (req.headers['x-forwarded-for'] || '').split(',')[0].trim() || req.socket?.remoteAddress || 'unbekannt';
+  if (istZuSchnell(ip)) {
+    return res.status(429).json({ error: 'Trop de tentatives. Réessaie plus tard.' });
+  }
+
+  if (!email || typeof email !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim())) {
     return res.status(400).json({ error: 'Adresse e-mail invalide.' });
   }
 
