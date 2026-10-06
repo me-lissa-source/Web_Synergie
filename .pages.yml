@@ -1,0 +1,32 @@
+# Pages CMS (app.pagescms.org) – nur das Kalenderbild ist bearbeitbar.
+media:
+  - name: kalender
+    label: Calendrier
+    input: assets/img/kalender
+    output: /assets/img/kalender
+    extensions: [jpg, jpeg, webp]
+    # Jedes Upload bekommt einen neuen Dateinamen -> Browser-Cache zeigt sofort das neue Bild
+    rename: random
+
+content:
+  - name: kalender
+    label: Calendrier
+    description: "Image JPG, environ 2000 px de large."
+    type: file
+    path: content/kalender.json
+    format: json
+    operations:
+      create: false
+      rename: false
+      delete: false
+    fields:
+      - name: bild
+        label: Image du calendrier
+        type: image
+        required: true
+        options:
+          media: kalender
+      - name: alt
+        label: Description de l'image (pour malvoyants et Google)
+        type: string
+        required: true

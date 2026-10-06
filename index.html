@@ -52,6 +52,29 @@
 .hv4:hover { transform: translateY(-5px); box-shadow: 0 18px 44px rgba(43,34,32,0.13); }
 .hv5:hover { transform: translateY(-5px); box-shadow: 0 18px 44px rgba(43,34,32,0.13); }
 .hv1, .hv2, .hv3, .hv4, .hv5 { position: sticky; top: 96px; margin-bottom: 34px; }
+  /* Navigation: immer Menue-Knopf, Box rechts, Eintraege linksbuendig */
+  .nav-actions { position: relative; display: flex; align-items: center; gap: 16px; }
+  .lang-switch { display: inline-flex; align-items: center; color: #2B2220; font-size: 13px; letter-spacing: 0.1em; }
+  .lang-switch button { padding: 8px 6px; border: 0; background: none; color: inherit; font: inherit; font-weight: 400; cursor: pointer; }
+  .lang-switch button[aria-pressed="true"] { font-weight: 600; cursor: default; }
+  .lang-switch span { opacity: 0.35; }
+  .nav-reserver { padding: 11px 22px; border-radius: 999px; background: #C4441A; color: #FAF7EF; font-size: 14px; letter-spacing: 0.06em; white-space: nowrap; }
+  #nav-burger { display: flex; width: 44px; height: 44px; align-items: center; justify-content: center; padding: 0; border: none; background: none; color: #C4441A; font-family: inherit; font-size: 22px; cursor: pointer; }
+  #site-nav { position: absolute; top: calc(100% + 18px); right: 0; display: flex; flex-direction: column; align-items: flex-start; min-width: 210px; padding: 8px 24px; border: 1px solid #E7DECB; border-radius: 18px; background: #FFFDF8; box-shadow: 0 12px 32px rgba(43,34,32,0.12); font-size: 15px; letter-spacing: 0.04em; white-space: nowrap; text-align: left; }
+  #site-nav[data-open="false"] { display: none; }
+  #site-nav a { padding: 11px 0; color: #2B2220; }
+  #site-nav a:hover { color: #C4441A; }
+  @media (max-width: 600px) {
+    html header { padding: 12px 12px !important; gap: 6px !important; }
+    header > a:first-child { gap: 8px !important; }
+    header > a:first-child img { width: 36px !important; height: 36px !important; }
+    header > a:first-child span { max-width: 8.6em; font-size: 13px !important; line-height: 1.25; letter-spacing: 0.08em !important; }
+    .nav-actions { gap: 4px; }
+    .lang-switch { letter-spacing: 0.04em; }
+    .lang-switch button { padding: 8px 3px; }
+    .nav-reserver { padding: 9px 12px; font-size: 13px; letter-spacing: 0.03em; }
+    #nav-burger { width: 36px; }
+  }
   @media (min-width: 901px) and (max-width: 1109px) {
       .kicker-sep { display: none !important; }
     }
@@ -61,13 +84,9 @@
       .hero-tags-connector { display: none !important; }
     }
     @media (max-width: 900px) {
-    header { padding: 14px 16px !important; flex-wrap: wrap !important; gap: 10px !important; }
+    header { padding: 14px 16px !important; gap: 10px !important; }
     header a:first-child span { font-size: 15px !important; letter-spacing: 0.08em !important; }
-    #nav-burger { display: flex !important; }
-    #site-nav { width: 100%; flex-direction: column !important; align-items: flex-start !important; gap: 4px !important; padding: 10px 0 6px !important; }
-    #site-nav[data-open="false"] { display: none !important; }
-    #site-nav a { padding: 12px 0 !important; }
-    #site-nav a:last-child { margin-top: 6px; padding: 12px 22px !important; }
+    #site-nav { top: calc(100% + 14px); }
     section, footer { padding-left: 22px !important; padding-right: 22px !important; }
     [style*="display: grid"] { grid-template-columns: 1fr !important; }
     [style*="display: grid"] > * { min-width: 0 !important; }
@@ -102,41 +121,46 @@
 </script>
 </head>
 <body>
-<a href="#main" class="skip-link">Aller au contenu</a>
+<a data-i18n="hero-1" href="#main" class="skip-link">Aller au contenu</a>
 <div style="font-family: Outfit, system-ui, sans-serif; color: #2B2220; background: #FAF7EF">
 
   <header style="position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 18px 40px; background: rgba(251,248,244,0.88); backdrop-filter: blur(12px); border-bottom: 1px solid #E7DECB">
     <a href="#" style="display: flex; align-items: center; gap: 14px"><img src="assets/img/logo-ateliers-du-vivant.png" width="310" height="309" alt="Les Ateliers du Vivant" fetchpriority="high" style="width: 44px; height: 44px; display: block"><span style="font-family: Newsreader, Georgia, serif; font-size: 19px; letter-spacing: 0.14em; text-transform: uppercase; color: #C4441A">Les Ateliers du Vivant</span></a>
-    <button type="button" id="nav-burger" aria-label="Menu" aria-expanded="false" aria-controls="site-nav" style="display: none; width: 44px; height: 44px; align-items: center; justify-content: center; cursor: pointer; font-size: 22px; color: #C4441A; background: none; border: none; padding: 0; font-family: inherit">≡</button>
-    <nav id="site-nav" style="display: flex; align-items: center; gap: 22px; font-size: 14px; letter-spacing: 0.04em; white-space: nowrap">
-      <a href="#ateliers" style="color: #2B2220">Les ateliers</a>
-      <a href="#calendrier" style="color: #2B2220">Calendrier</a>
-      <a href="#carte" style="color: #2B2220">Carte Flow</a>
-      <a href="#apropos" style="color: #2B2220">À propos</a>
-      <a href="#lieu" style="color: #2B2220">Le lieu</a>
-      <a href="#newsletter" style="color: #2B2220">Newsletter</a>
-      <a href="#ateliers" style="padding: 11px 22px; border-radius: 999px; background: #C4441A; color: #FAF7EF; letter-spacing: 0.06em">Réserver</a>
-    </nav>
+    <div class="nav-actions">
+      <div class="lang-switch" role="group" aria-label="Langue / Language">
+        <button type="button" lang="fr" aria-pressed="true">FR</button><span aria-hidden="true">|</span><button type="button" lang="en" aria-pressed="false">EN</button>
+      </div>
+      <a data-i18n="nav-1" href="#ateliers" class="nav-reserver">Réserver</a>
+      <button type="button" id="nav-burger" aria-label="Menu" aria-expanded="false" aria-controls="site-nav">≡</button>
+      <nav id="site-nav">
+      <a data-i18n="nav-2" href="#ateliers">Les ateliers</a>
+      <a data-i18n="nav-3" href="#calendrier">Calendrier</a>
+      <a data-i18n="nav-4" href="#carte">Carte Flow</a>
+      <a data-i18n="nav-5" href="#apropos">À propos</a>
+      <a data-i18n="nav-6" href="#lieu">Le lieu</a>
+      <a data-i18n="nav-7" href="#newsletter">Newsletter</a>
+      </nav>
+    </div>
   </header>
 
   <main id="main">
   <section aria-labelledby="t-hero" style="position: relative; display: grid; grid-template-columns: 1.05fr 0.95fr; align-items: stretch; min-height: 86vh; background: radial-gradient(1100px 620px at 6% 96%, rgba(110,122,62,0.12), transparent 62%)">
     <div class="hero-text" style="display: flex; flex-direction: column; justify-content: center; gap: 30px; padding: 96px 72px 104px">
-      <div style="font-size: 12px; letter-spacing: 0.28em; text-transform: uppercase; color: #5F7A3B; display: flex; flex-wrap: wrap; gap: 8px"><span style="white-space: nowrap">Les samedis &amp; dimanches</span><span style="white-space: nowrap"><span class="kicker-sep">· </span>Au Cros-de-Cagnes</span></div>
+      <div style="font-size: 12px; letter-spacing: 0.28em; text-transform: uppercase; color: #5F7A3B; display: flex; flex-wrap: wrap; gap: 8px"><span data-i18n="hero-2" style="white-space: nowrap">Les samedis &amp; dimanches</span><span data-i18n="hero-3" style="white-space: nowrap"><span class="kicker-sep">· </span>Au Cros-de-Cagnes</span></div>
       <h1 id="t-hero" style="margin: 0; font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: 76px; line-height: 1.02; letter-spacing: -0.02em; background-image: linear-gradient(94deg, #C4441A 0%, #E86A22 46%, #F5A62E 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent">Les Ateliers<br class="h1-break"> du Vivant</h1>
-      <p style="margin: 0; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 34px; line-height: 1.2; color: #2B2220">Trouve ton Flow.<span class="hero-subtitle-break"> </span>Cultive ton Flow.</p>
+      <p data-i18n="hero-4" style="margin: 0; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 34px; line-height: 1.2; color: #2B2220">Trouve ton Flow.<span class="hero-subtitle-break"> </span>Cultive ton Flow.</p>
       <div style="display: flex; flex-direction: column; gap: 14px">
-        <p class="hero-tags" style="margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 26px; line-height: 1.3"><span class="hero-tags-row1" style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px"><span style="color: #E0703C">bouger</span><span style="color: #A9BE9A; font-style: normal">·</span><span style="color: #C9882A">renforcer</span><span style="color: #A9BE9A; font-style: normal">·</span><span style="color: #1F8F78">ralentir</span></span><span class="hero-tags-connector" style="color: #A9BE9A; font-style: normal">·</span><span class="hero-tags-row2" style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px"><span style="color: #8E5F86">créer</span><span style="color: #A9BE9A; font-style: normal">·</span><span style="color: #4E8A2A">ressourcer</span></span></p>
+        <p class="hero-tags" style="margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 26px; line-height: 1.3"><span class="hero-tags-row1" style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px"><span data-i18n="hero-5" style="color: #E0703C">bouger</span><span style="color: #A9BE9A; font-style: normal">·</span><span data-i18n="hero-6" style="color: #C9882A">renforcer</span><span style="color: #A9BE9A; font-style: normal">·</span><span data-i18n="hero-7" style="color: #1F8F78">ralentir</span></span><span class="hero-tags-connector" style="color: #A9BE9A; font-style: normal">·</span><span class="hero-tags-row2" style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px"><span data-i18n="hero-8" style="color: #8E5F86">créer</span><span style="color: #A9BE9A; font-style: normal">·</span><span data-i18n="hero-9" style="color: #4E8A2A">ressourcer</span></span></p>
         <span style="height: 2px; width: 100%; max-width: 460px; border-radius: 2px; background-image: linear-gradient(90deg, #E0703C 0%, #C9882A 34%, #1F8F78 68%, #5F7A3B 100%)"></span>
       </div>
-      <p style="margin: 0; max-width: 52ch; font-size: 18px; line-height: 1.7; color: #4A403B; text-wrap: pretty">Des rendez-vous privilégiés pour revenir à soi, cultiver son mieux-être et ce qui nous fait nous sentir pleinement vivant·es, aujourd’hui et pour demain. Tu peux parfois avoir besoin de te renforcer, de te structurer ou, au contraire, de ralentir, de lâcher prise, de créer… Parfois, simplement, d’un espace pour écouter ce qui bouge en toi et le laisser émerger.</p>
-      <p style="margin: 0; max-width: 52ch; font-size: 18px; line-height: 1.7; color: #4A403B; text-wrap: pretty">Sweet Yoga postural, Yoga Nidra &amp; sonothérapie, danse libre, pratiques douces de bien-être et créativité : <strong style="font-weight: 500; color: #2B2220">choisis et compose ton Flow selon tes besoins</strong>, pour faire plus de place à ce qui te rend vivant·e.</p>
+      <p data-i18n="hero-10" style="margin: 0; max-width: 52ch; font-size: 18px; line-height: 1.7; color: #4A403B; text-wrap: pretty">Des rendez-vous privilégiés pour revenir à soi, cultiver son mieux-être et ce qui nous fait nous sentir pleinement vivant·es, aujourd’hui et pour demain. Tu peux parfois avoir besoin de te renforcer, de te structurer ou, au contraire, de ralentir, de lâcher prise, de créer… Parfois, simplement, d’un espace pour écouter ce qui bouge en toi et le laisser émerger.</p>
+      <p data-i18n="hero-11" style="margin: 0; max-width: 52ch; font-size: 18px; line-height: 1.7; color: #4A403B; text-wrap: pretty">Sweet Yoga postural, Yoga Nidra &amp; sonothérapie, danse libre, pratiques douces de bien-être et créativité : <strong style="font-weight: 500; color: #2B2220">choisis et compose ton Flow selon tes besoins</strong>, pour faire plus de place à ce qui te rend vivant·e.</p>
       <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 6px">
-        <a href="#ateliers" style="padding: 17px 32px; border-radius: 999px; background: #C4441A; color: #FAF7EF; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase">Découvrir les ateliers</a>
-        <a href="#calendrier" style="padding: 17px 32px; border-radius: 999px; border: 1px solid #C4441A; color: #C4441A; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase">Voir le calendrier</a>
+        <a data-i18n="hero-12" href="#ateliers" style="padding: 17px 32px; border-radius: 999px; background: #C4441A; color: #FAF7EF; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase">Découvrir les ateliers</a>
+        <a data-i18n="hero-13" href="#calendrier" style="padding: 17px 32px; border-radius: 999px; border: 1px solid #C4441A; color: #C4441A; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase">Voir le calendrier</a>
       </div>
     </div>
-    <div class="hero-photo" style="position: relative; border-left: 1px solid #E7DECB; overflow: hidden"><img src="assets/img/hero-bras-ouverts-champ-dore.jpg" width="1080" height="1350" alt="Minh-Tâm, bras ouverts dans un champ doré, visage tourné vers le soleil" fetchpriority="high" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 55% 20%">
+    <div class="hero-photo" style="position: relative; border-left: 1px solid #E7DECB; overflow: hidden"><img data-i18n-alt="attr-1" src="assets/img/hero-bras-ouverts-champ-dore.jpg" width="1080" height="1350" alt="Minh-Tâm, bras ouverts dans un champ doré, visage tourné vers le soleil" fetchpriority="high" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 55% 20%">
     </div>
   </section>
 
@@ -145,11 +169,11 @@
   <section id="ateliers" aria-labelledby="t-ateliers" style="padding: 130px 72px 40px; background: linear-gradient(180deg, #EDF0E1 0%, #F4F2E7 34%, #FAF7EF 78%)">
     <div style="max-width: 880px; margin: 0 auto; text-align: center; display: flex; flex-direction: column; gap: 24px">
       <img src="assets/img/motif-vivant-vert-3.png" width="512" height="512" decoding="async" alt="" style="width: 84px; height: 84px; align-self: center; display: block; margin-bottom: 4px">
-      <h2 id="t-ateliers" style="margin: 0; font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: 52px; line-height: 1.1; background-image: linear-gradient(94deg, #C4441A 0%, #E86A22 46%, #F5A62E 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent">Les rendez-vous du Vivant</h2>
-      <p style="margin: 0; font-size: 20px; line-height: 1.6; color: #2B2220">Des espaces différents pour prendre soin de toi, selon ton rythme et tes besoins.</p>
-      <p style="margin: 0; font-size: 18px; line-height: 1.75; color: #4A403B; text-wrap: pretty">Corps, mouvement, relaxation, son, danse, créativité<strong style="font-weight: 500; color: rgb(43, 34, 32);"><br>chaque rendez-vous explore une dimension différente et les pratiques se répondent au fil de l’année.</strong></p>
-      <p style="margin: 0; font-size: 18px; line-height: 1.75; color: #4A403B; text-wrap: pretty">Tu peux venir ponctuellement, retrouver régulièrement une pratique ou <strong style="font-weight: 500; color: #2B2220">composer ton propre parcours en associant plusieurs Flow.</strong></p>
-      <p style="margin: 0; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 27px; line-height: 1.3; color: #C22E22">À toi de trouver le rythme qui te fait du bien.</p>
+      <h2 data-i18n="ateliers-1" id="t-ateliers" style="margin: 0; font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: 52px; line-height: 1.1; background-image: linear-gradient(94deg, #C4441A 0%, #E86A22 46%, #F5A62E 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent">Les rendez-vous du Vivant</h2>
+      <p data-i18n="ateliers-2" style="margin: 0; font-size: 20px; line-height: 1.6; color: #2B2220">Des espaces différents pour prendre soin de toi, selon ton rythme et tes besoins.</p>
+      <p data-i18n="ateliers-3" style="margin: 0; font-size: 18px; line-height: 1.75; color: #4A403B; text-wrap: pretty">Corps, mouvement, relaxation, son, danse, créativité<strong style="font-weight: 500; color: rgb(43, 34, 32);"><br>chaque rendez-vous explore une dimension différente et les pratiques se répondent au fil de l’année.</strong></p>
+      <p data-i18n="ateliers-4" style="margin: 0; font-size: 18px; line-height: 1.75; color: #4A403B; text-wrap: pretty">Tu peux venir ponctuellement, retrouver régulièrement une pratique ou <strong style="font-weight: 500; color: #2B2220">composer ton propre parcours en associant plusieurs Flow.</strong></p>
+      <p data-i18n="ateliers-5" style="margin: 0; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 27px; line-height: 1.3; color: #C22E22">À toi de trouver le rythme qui te fait du bien.</p>
     </div>
   </section>
 
@@ -157,19 +181,19 @@
     <div style="max-width: 1180px; margin: 0 auto">
 
       <article style="display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 0; border: 1px solid #E7DECB; background: #FFFDF8; overflow: hidden; border-radius: 28px; box-shadow: 0 2px 12px rgba(43,34,32,0.06); transition: transform 0.28s ease, box-shadow 0.28s ease" data-hv="hv1" class="hv1">
-        <div style="position: relative; min-height: 340px; overflow: hidden"><img src="assets/img/photo-slow-flow.jpg" width="1080" height="1080" loading="lazy" alt="Pratique douce, mains en méditation" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover"></div>
+        <div style="position: relative; min-height: 340px; overflow: hidden"><img data-i18n-alt="attr-2" src="assets/img/photo-slow-flow.jpg" width="1080" height="1080" loading="lazy" alt="Pratique douce, mains en méditation" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover"></div>
         <div style="padding: 48px 48px 44px; display: flex; flex-direction: column; gap: 18px">
           <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 20px">
-            <div style="display: flex; align-items: flex-start; gap: 13px"><img src="assets/img/b-slow-flow.png" width="512" height="512" loading="lazy" alt="" style="width: 46px; height: 46px; margin-top: -2px; flex: 0 0 auto; display: block"><h3 style="margin: 0; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: 34px; line-height: 1.14; letter-spacing: 0.01em; color: #C4441A">FLOW DÉCOUVERTE</h3></div>
-            <span style="font-size: 13px; letter-spacing: 0.16em; color: #D9A343; white-space: nowrap">★ 1 étoile</span>
+            <div style="display: flex; align-items: flex-start; gap: 13px"><img src="assets/img/b-slow-flow.png" width="512" height="512" loading="lazy" alt="" style="width: 46px; height: 46px; margin-top: -2px; flex: 0 0 auto; display: block"><h3 data-i18n="hero-14" style="margin: 0; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: 34px; line-height: 1.14; letter-spacing: 0.01em; color: #C4441A">FLOW DÉCOUVERTE</h3></div>
+            <span data-i18n="hero-15" style="font-size: 13px; letter-spacing: 0.16em; color: #D9A343; white-space: nowrap">★ 1 étoile</span>
           </div>
-          <p style="margin: 0; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 23px; color: #2B2220">Ton Slow Flow du dimanche</p>
-          <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #2B2220"><strong style="font-weight: 500">Un réveil en douceur pour prendre soin de toi et commencer la journée autrement.</strong></p>
-          <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #4A403B; text-wrap: pretty">Chaque dimanche, découvre une nouvelle pratique : méditation, yoga du son, yoga du visage, automassage japonais, mobilité douce, relaxation…</p>
-          <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #4A403B; text-wrap: pretty">Le contenu change au fil des semaines, mais l’intention reste la même : <strong style="font-weight: 500; color: #2B2220">éveiller tes sensations, ralentir et t’offrir un véritable temps de respiration.</strong></p>
+          <p data-i18n="hero-16" style="margin: 0; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 23px; color: #2B2220">Ton Slow Flow du dimanche</p>
+          <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #2B2220"><strong data-i18n="hero-17" style="font-weight: 500">Un réveil en douceur pour prendre soin de toi et commencer la journée autrement.</strong></p>
+          <p data-i18n="hero-18" style="margin: 0; font-size: 17px; line-height: 1.7; color: #4A403B; text-wrap: pretty">Chaque dimanche, découvre une nouvelle pratique : méditation, yoga du son, yoga du visage, automassage japonais, mobilité douce, relaxation…</p>
+          <p data-i18n="hero-19" style="margin: 0; font-size: 17px; line-height: 1.7; color: #4A403B; text-wrap: pretty">Le contenu change au fil des semaines, mais l’intention reste la même : <strong style="font-weight: 500; color: #2B2220">éveiller tes sensations, ralentir et t’offrir un véritable temps de respiration.</strong></p>
           <div style="margin-top: 26px; padding-top: 22px; border-top: 1px solid #EFE3D6; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px">
-            <span style="font-size: 16px; font-weight: 500; letter-spacing: 0.02em; color: #A8506B">Tous les dimanches · 11 h–12 h · Durée 1h</span>
-            <a href="https://www.helloasso.com/associations/synergie-06/evenements/atelier-slow-flow" target="_blank" rel="noopener" style="padding: 15px 28px; border-radius: 999px; background: #A8506B; color: #FFF6F8; font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; line-height: 1.35; text-align: center">Découvrir les Flow Découverte</a>
+            <span data-i18n="hero-20" style="font-size: 16px; font-weight: 500; letter-spacing: 0.02em; color: #A8506B">Tous les dimanches · 11 h–12 h · Durée 1h</span>
+            <a data-i18n="hero-21" href="https://www.helloasso.com/associations/synergie-06/evenements/atelier-slow-flow" target="_blank" rel="noopener" style="padding: 15px 28px; border-radius: 999px; background: #A8506B; color: #FFF6F8; font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; line-height: 1.35; text-align: center">Découvrir les Flow Découverte</a>
           </div>
         </div>
       </article>
@@ -180,32 +204,32 @@
         <div style="padding: 48px 48px 44px; display: flex; flex-direction: column; gap: 18px">
           <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 20px">
             <div style="display: flex; align-items: flex-start; gap: 13px"><img src="assets/img/b-sweet-yoga-flow.png" width="512" height="512" loading="lazy" alt="" style="width: 46px; height: 46px; margin-top: -2px; flex: 0 0 auto; display: block"><h3 style="margin: 0; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: 34px; line-height: 1.14; color: #C4441A">SWEET YOGA FLOW</h3></div>
-            <span style="font-size: 13px; letter-spacing: 0.16em; color: #D9A343; white-space: nowrap">★★ 2 étoiles</span>
+            <span data-i18n="hero-22" style="font-size: 13px; letter-spacing: 0.16em; color: #D9A343; white-space: nowrap">★★ 2 étoiles</span>
           </div>
-          <p style="margin: 0; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 23px; color: #2B2220">Renforcer · assouplir · s’aligner</p>
-          <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #4A403B; text-wrap: pretty">Une pratique qui associe Yoga postural et Hatha Yoga pour développer progressivement <strong style="font-weight: 500; color: #2B2220">force, mobilité, souplesse et conscience corporelle</strong>.</p>
-          <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #4A403B; text-wrap: pretty">Un travail précis, nourri par l’anatomie du mouvement et la méthode Alexander, pour progresser dans le respect de ton corps et de ses limites.</p>
+          <p data-i18n="hero-23" style="margin: 0; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 23px; color: #2B2220">Renforcer · assouplir · s’aligner</p>
+          <p data-i18n="hero-24" style="margin: 0; font-size: 17px; line-height: 1.7; color: #4A403B; text-wrap: pretty">Une pratique qui associe Yoga postural et Hatha Yoga pour développer progressivement <strong style="font-weight: 500; color: #2B2220">force, mobilité, souplesse et conscience corporelle</strong>.</p>
+          <p data-i18n="hero-25" style="margin: 0; font-size: 17px; line-height: 1.7; color: #4A403B; text-wrap: pretty">Un travail précis, nourri par l’anatomie du mouvement et la méthode Alexander, pour progresser dans le respect de ton corps et de ses limites.</p>
           <div style="margin-top: 26px; padding-top: 22px; border-top: 1px solid #EFE3D6; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px">
-            <span style="font-size: 16px; font-weight: 500; letter-spacing: 0.02em; color: #B9760F">2 rendez-vous par mois · le dimanche de 15 h à 17 h 30 · Durée 2h30</span>
-            <a href="https://www.helloasso.com/associations/synergie-06/evenements/atelier-sweet-yoga-flow" target="_blank" rel="noopener" style="padding: 15px 28px; border-radius: 999px; background: #B9760F; color: #FFFAF1; font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; line-height: 1.35; text-align: center">Découvrir les Sweet Yoga Flow</a>
+            <span data-i18n="hero-26" style="font-size: 16px; font-weight: 500; letter-spacing: 0.02em; color: #B9760F">2 rendez-vous par mois · le dimanche de 15 h à 17 h 30 · Durée 2h30</span>
+            <a data-i18n="hero-27" href="https://www.helloasso.com/associations/synergie-06/evenements/atelier-sweet-yoga-flow" target="_blank" rel="noopener" style="padding: 15px 28px; border-radius: 999px; background: #B9760F; color: #FFFAF1; font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; line-height: 1.35; text-align: center">Découvrir les Sweet Yoga Flow</a>
           </div>
         </div>
-        <div style="position: relative; min-height: 340px; overflow: hidden"><img src="assets/img/photo-sweet-yoga.jpg" width="1080" height="1080" loading="lazy" alt="Posture de yoga en flexion latérale" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover"></div>
+        <div style="position: relative; min-height: 340px; overflow: hidden"><img data-i18n-alt="attr-3" src="assets/img/photo-sweet-yoga.jpg" width="1080" height="1080" loading="lazy" alt="Posture de yoga en flexion latérale" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover"></div>
       </article>
 
       <article style="display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 0; border: 1px solid #2B2220; background: linear-gradient(160deg, #2B2220 0%, #21312A 100%); color: #F7F1E7; overflow: hidden; border-radius: 28px; box-shadow: 0 2px 12px rgba(43,34,32,0.06); transition: transform 0.28s ease, box-shadow 0.28s ease" data-hv="hv3" class="hv3">
-        <div style="position: relative; min-height: 340px; overflow: hidden"><img src="assets/img/photo-nidra-gong.jpg" width="1080" height="1080" loading="lazy" alt="Bain de gong, relaxation profonde" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover"></div>
+        <div style="position: relative; min-height: 340px; overflow: hidden"><img data-i18n-alt="attr-4" src="assets/img/photo-nidra-gong.jpg" width="1080" height="1080" loading="lazy" alt="Bain de gong, relaxation profonde" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover"></div>
         <div style="padding: 48px 48px 44px; display: flex; flex-direction: column; gap: 18px">
           <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 20px">
             <div style="display: flex; align-items: flex-start; gap: 13px"><img src="assets/img/b-nidra-gong-flow.png" width="512" height="512" loading="lazy" alt="" style="width: 46px; height: 46px; margin-top: -2px; flex: 0 0 auto; display: block"><h3 style="margin: 0; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: 34px; line-height: 1.14; color: #F7F1E7">NIDRA GONG FLOW</h3></div>
-            <span style="font-size: 13px; letter-spacing: 0.16em; color: #D9A343; white-space: nowrap">★★ 2 étoiles</span>
+            <span data-i18n="hero-28" style="font-size: 13px; letter-spacing: 0.16em; color: #D9A343; white-space: nowrap">★★ 2 étoiles</span>
           </div>
-          <p style="margin: 0; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 23px; color: #E7DECB">Ralentir · relâcher · se régénérer</p>
-          <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #DCD2C6; text-wrap: pretty">Yoga Nidra, Gong Bath &amp; sonothérapie se mêlent dans un voyage sonore immersif invitant au lâcher-prise, à la relaxation profonde et à la récupération.</p>
-          <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #DCD2C6; text-wrap: pretty">Un temps pour laisser le rythme ralentir, relâcher les tensions et retrouver <strong style="font-weight: 500; color: #F7F1E7">un espace de calme</strong>.</p>
+          <p data-i18n="hero-29" style="margin: 0; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 23px; color: #E7DECB">Ralentir · relâcher · se régénérer</p>
+          <p data-i18n="hero-30" style="margin: 0; font-size: 17px; line-height: 1.7; color: #DCD2C6; text-wrap: pretty">Yoga Nidra, Gong Bath &amp; sonothérapie se mêlent dans un voyage sonore immersif invitant au lâcher-prise, à la relaxation profonde et à la récupération.</p>
+          <p data-i18n="hero-31" style="margin: 0; font-size: 17px; line-height: 1.7; color: #DCD2C6; text-wrap: pretty">Un temps pour laisser le rythme ralentir, relâcher les tensions et retrouver <strong style="font-weight: 500; color: #F7F1E7">un espace de calme</strong>.</p>
           <div style="margin-top: 26px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,0.16); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px">
-            <span style="font-size: 16px; font-weight: 500; letter-spacing: 0.02em; color: #08DDB8">🌑 Ton rendez-vous NEW MOON, chaque mois · Durée 1h30</span>
-            <a href="https://www.helloasso.com/associations/synergie-06/evenements/atelier-nidra-gong-flow" target="_blank" rel="noopener" style="padding: 15px 28px; border-radius: 999px; background: #3FE0BC; color: #17322C; font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; line-height: 1.35; text-align: center">Découvrir les Nidra Gong Flow</a>
+            <span data-i18n="hero-32" style="font-size: 16px; font-weight: 500; letter-spacing: 0.02em; color: #08DDB8">🌑 Ton rendez-vous NEW MOON, chaque mois · Durée 1h30</span>
+            <a data-i18n="hero-33" href="https://www.helloasso.com/associations/synergie-06/evenements/atelier-nidra-gong-flow" target="_blank" rel="noopener" style="padding: 15px 28px; border-radius: 999px; background: #3FE0BC; color: #17322C; font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; line-height: 1.35; text-align: center">Découvrir les Nidra Gong Flow</a>
           </div>
         </div>
       </article>
@@ -214,33 +238,33 @@
         <div style="padding: 48px 48px 44px; display: flex; flex-direction: column; gap: 18px">
           <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 20px">
             <div style="display: flex; align-items: flex-start; gap: 13px"><img src="assets/img/b-dance-flow.png" width="512" height="512" loading="lazy" alt="" style="width: 46px; height: 46px; margin-top: -2px; flex: 0 0 auto; display: block"><h3 style="margin: 0; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: 34px; line-height: 1.14; color: #F7F1E7">DANCE FLOW</h3></div>
-            <span style="font-size: 13px; letter-spacing: 0.16em; color: #E8B95C; white-space: nowrap">★ 1 étoile</span>
+            <span data-i18n="hero-34" style="font-size: 13px; letter-spacing: 0.16em; color: #E8B95C; white-space: nowrap">★ 1 étoile</span>
           </div>
-          <p style="margin: 0; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 23px; color: #EFD9C4">Libérer · lâcher prise · retrouver son élan</p>
-          <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #DCD2C6; text-wrap: pretty">Laisse de l’espace au corps pour bouger librement, libérer les tensions et laisser le mental décrocher.</p>
-          <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #DCD2C6; text-wrap: pretty">Musique, mouvement, sensations : <strong style="font-weight: 500; color: #F7F1E7">un reset par la danse</strong>, sans chorégraphie et sans recherche de performance.</p>
-          <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #DCD2C6; text-wrap: pretty">Un espace pour lâcher, respirer autrement et retrouver le plaisir simple d’un corps en mouvement.</p>
+          <p data-i18n="hero-35" style="margin: 0; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 23px; color: #EFD9C4">Libérer · lâcher prise · retrouver son élan</p>
+          <p data-i18n="hero-36" style="margin: 0; font-size: 17px; line-height: 1.7; color: #DCD2C6; text-wrap: pretty">Laisse de l’espace au corps pour bouger librement, libérer les tensions et laisser le mental décrocher.</p>
+          <p data-i18n="hero-37" style="margin: 0; font-size: 17px; line-height: 1.7; color: #DCD2C6; text-wrap: pretty">Musique, mouvement, sensations : <strong style="font-weight: 500; color: #F7F1E7">un reset par la danse</strong>, sans chorégraphie et sans recherche de performance.</p>
+          <p data-i18n="hero-38" style="margin: 0; font-size: 17px; line-height: 1.7; color: #DCD2C6; text-wrap: pretty">Un espace pour lâcher, respirer autrement et retrouver le plaisir simple d’un corps en mouvement.</p>
           <div style="margin-top: 26px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,0.16); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px">
-            <span style="font-size: 16px; font-weight: 500; letter-spacing: 0.02em; color: #E8875C">🌕 Ton rendez-vous FULL MOON, chaque mois · Durée 2h</span>
-            <a href="https://www.helloasso.com/associations/synergie-06/evenements/atelier-dance-flow-1" target="_blank" rel="noopener" style="padding: 15px 28px; border-radius: 999px; background: #E0703C; color: #2B2220; font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; line-height: 1.35; text-align: center">Découvrir les Dance Flow</a>
+            <span data-i18n="hero-39" style="font-size: 16px; font-weight: 500; letter-spacing: 0.02em; color: #E8875C">🌕 Ton rendez-vous FULL MOON, chaque mois · Durée 2h</span>
+            <a data-i18n="hero-40" href="https://www.helloasso.com/associations/synergie-06/evenements/atelier-dance-flow-1" target="_blank" rel="noopener" style="padding: 15px 28px; border-radius: 999px; background: #E0703C; color: #2B2220; font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; line-height: 1.35; text-align: center">Découvrir les Dance Flow</a>
           </div>
         </div>
-        <div style="position: relative; min-height: 340px; overflow: hidden"><img src="assets/img/photo-dance-flow.jpg" width="1080" height="1080" loading="lazy" alt="Danse en contre-jour au coucher du soleil" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover"></div>
+        <div style="position: relative; min-height: 340px; overflow: hidden"><img data-i18n-alt="attr-5" src="assets/img/photo-dance-flow.jpg" width="1080" height="1080" loading="lazy" alt="Danse en contre-jour au coucher du soleil" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover"></div>
       </article>
 
       <article style="display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 0; border: 1px solid #E7DECB; background: #FFFDF8; overflow: hidden; border-radius: 28px; box-shadow: 0 2px 12px rgba(43,34,32,0.06); transition: transform 0.28s ease, box-shadow 0.28s ease" data-hv="hv5" class="hv5">
-        <div style="position: relative; min-height: 340px; overflow: hidden"><img src="assets/img/photo-ecriture.jpg" width="1080" height="1080" loading="lazy" alt="Écriture dans un carnet" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover"></div>
+        <div style="position: relative; min-height: 340px; overflow: hidden"><img data-i18n-alt="attr-6" src="assets/img/photo-ecriture.jpg" width="1080" height="1080" loading="lazy" alt="Écriture dans un carnet" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover"></div>
         <div style="padding: 48px 48px 44px; display: flex; flex-direction: column; gap: 18px">
           <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 20px">
-            <div style="display: flex; align-items: flex-start; gap: 13px"><img src="assets/img/b-flow-creatif-ecriture.png" width="512" height="512" loading="lazy" alt="" style="width: 46px; height: 46px; margin-top: -2px; flex: 0 0 auto; display: block"><h3 style="margin: 0; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: 34px; line-height: 1.14; color: #C4441A">FLOW CRÉATIF — ÉCRITURE</h3></div>
-            <span style="font-size: 13px; letter-spacing: 0.16em; color: #D9A343; white-space: nowrap">★ 1 étoile</span>
+            <div style="display: flex; align-items: flex-start; gap: 13px"><img src="assets/img/b-flow-creatif-ecriture.png" width="512" height="512" loading="lazy" alt="" style="width: 46px; height: 46px; margin-top: -2px; flex: 0 0 auto; display: block"><h3 data-i18n="hero-41" style="margin: 0; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: 34px; line-height: 1.14; color: #C4441A">FLOW CRÉATIF — ÉCRITURE</h3></div>
+            <span data-i18n="hero-42" style="font-size: 13px; letter-spacing: 0.16em; color: #D9A343; white-space: nowrap">★ 1 étoile</span>
           </div>
-          <p style="margin: 0; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 23px; color: #2B2220">Écrire · explorer · ouvrir</p>
-          <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #4A403B; text-wrap: pretty">Des propositions et des exercices d’écriture créative pour laisser venir les mots, imaginer et ouvrir de nouvelles perspectives.</p>
-          <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #4A403B; text-wrap: pretty"><strong style="font-weight: 500; color: #2B2220">Pas besoin de « savoir écrire »</strong> : seulement l’envie de te laisser surprendre par ce qui peut émerger sur la page.</p>
+          <p data-i18n="hero-43" style="margin: 0; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 23px; color: #2B2220">Écrire · explorer · ouvrir</p>
+          <p data-i18n="hero-44" style="margin: 0; font-size: 17px; line-height: 1.7; color: #4A403B; text-wrap: pretty">Des propositions et des exercices d’écriture créative pour laisser venir les mots, imaginer et ouvrir de nouvelles perspectives.</p>
+          <p data-i18n="hero-45" style="margin: 0; font-size: 17px; line-height: 1.7; color: #4A403B; text-wrap: pretty"><strong style="font-weight: 500; color: #2B2220">Pas besoin de « savoir écrire »</strong> : seulement l’envie de te laisser surprendre par ce qui peut émerger sur la page.</p>
           <div style="margin-top: 26px; padding-top: 22px; border-top: 1px solid #EFE3D6; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px">
-            <span style="font-size: 16px; font-weight: 500; letter-spacing: 0.02em; color: #8E5F86">2 samedis matin par mois · tous les 15 jours · Durée 2h</span>
-            <a href="https://www.helloasso.com/associations/synergie-06/evenements/atelier-flow-creatif-ecriture" target="_blank" rel="noopener" style="padding: 15px 28px; border-radius: 999px; background: #8E5F86; color: #FCF7FB; font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; line-height: 1.35; text-align: center">Découvrir les Flow Créatifs</a>
+            <span data-i18n="hero-46" style="font-size: 16px; font-weight: 500; letter-spacing: 0.02em; color: #8E5F86">2 samedis matin par mois · tous les 15 jours · Durée 2h</span>
+            <a data-i18n="hero-47" href="https://www.helloasso.com/associations/synergie-06/evenements/atelier-flow-creatif-ecriture" target="_blank" rel="noopener" style="padding: 15px 28px; border-radius: 999px; background: #8E5F86; color: #FCF7FB; font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; line-height: 1.35; text-align: center">Découvrir les Flow Créatifs</a>
           </div>
         </div>
       </article>
@@ -251,17 +275,17 @@
 <section id="calendrier" aria-labelledby="t-calendrier" style="padding: 120px 48px">
     <div style="max-width: 1800px; margin: 0 auto">
       <div style="display: flex; flex-direction: column; gap: 18px; margin-bottom: 44px">
-        <div style="font-size: 12px; letter-spacing: 0.28em; text-transform: uppercase; color: #C22E22">Le calendrier des ateliers</div>
-        <h2 id="t-calendrier" style="margin: 0; font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: 50px; line-height: 1.1; background-image: linear-gradient(94deg, #C4441A 0%, #E86A22 46%, #F5A62E 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent">Ton prochain rendez-vous avec le Vivant</h2>
-        <p style="margin: 0; max-width: 62ch; font-size: 18px; line-height: 1.75; color: #4A403B; text-wrap: pretty">Tu y retrouveras également les rendez-vous 🌑 NEW MOON, 🌕 FULL MOON et les expériences spéciales proposées au fil de l’année.</p>
+        <div data-i18n="calendrier-1" style="font-size: 12px; letter-spacing: 0.28em; text-transform: uppercase; color: #C22E22">Le calendrier des ateliers</div>
+        <h2 data-i18n="calendrier-2" id="t-calendrier" style="margin: 0; font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: 50px; line-height: 1.1; background-image: linear-gradient(94deg, #C4441A 0%, #E86A22 46%, #F5A62E 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent">Ton prochain rendez-vous avec le Vivant</h2>
+        <p data-i18n="calendrier-3" style="margin: 0; max-width: 62ch; font-size: 18px; line-height: 1.75; color: #4A403B; text-wrap: pretty">Tu y retrouveras également les rendez-vous 🌑 NEW MOON, 🌕 FULL MOON et les expériences spéciales proposées au fil de l’année.</p>
       </div>
 
       <figure style="margin: 0 0 40px; border: 1px solid #E7DECB; border-radius: 26px; background: #FFFDF8; padding: 18px; box-shadow: 0 2px 12px rgba(43,34,32,0.05)">
-        <a href="assets/img/calendrier-2026-2027-v2.png" target="_blank" rel="noopener" style="display: block"><img src="assets/img/calendrier-2026-2027-v2-web.jpg" width="1800" height="1273" loading="lazy" alt="Calendrier des Ateliers du Vivant, septembre 2026 à juin 2027" style="width: 100%; height: auto; display: block; border-radius: 14px"></a>
-        <figcaption style="margin-top: 18px; display: flex; flex-direction: column; align-items: flex-start; gap: 14px 24px; font-size: 15px; letter-spacing: 0.06em; color: #7C7168"><span>Programmation septembre 2026 — juin 2027</span><a href="assets/img/calendrier-2026-2027-v2.png" target="_blank" rel="noopener" style="order: -1; display: inline-flex; align-items: center; gap: 10px; padding: 14px 26px; border-radius: 999px; border: 1px solid #C22E22; background: #FFF6F1; color: #C22E22; font-size: 15px; font-weight: 500; letter-spacing: 0.06em">Agrandir le calendrier ↗</a></figcaption>
+        <a href="assets/img/calendrier-2026-2027-v2.png" data-kalender-link target="_blank" rel="noopener" style="display: block"><img id="kalender-bild" src="assets/img/calendrier-2026-2027-v2-web.jpg" width="1800" height="1273" loading="lazy" alt="Calendrier des Ateliers du Vivant, septembre 2026 à juin 2027" style="width: 100%; height: auto; display: block; border-radius: 14px"></a>
+        <figcaption style="margin-top: 18px; display: flex; flex-direction: column; align-items: flex-start; gap: 14px 24px; font-size: 15px; letter-spacing: 0.06em; color: #7C7168"><span data-i18n="calendrier-4">Programmation septembre 2026 — juin 2027</span><a data-i18n="calendrier-5" href="assets/img/calendrier-2026-2027-v2.png" data-kalender-link target="_blank" rel="noopener" style="order: -1; display: inline-flex; align-items: center; gap: 10px; padding: 14px 26px; border-radius: 999px; border: 1px solid #C22E22; background: #FFF6F1; color: #C22E22; font-size: 15px; font-weight: 500; letter-spacing: 0.06em">Agrandir le calendrier ↗</a></figcaption>
       </figure>
       <div style="margin-top: 40px">
-        <p style="margin: 0; font-size: 15px; color: #4A403B">Places limitées · réservation <a href="#ateliers" style="color: #C4441A; text-decoration: underline; text-underline-offset: 2px">en ligne</a> ou par téléphone (<a href="tel:+33623880502" style="color: #C4441A; text-decoration: underline; text-underline-offset: 2px">+33 6 23 88 05 02</a>)</p>
+        <p data-i18n="calendrier-6" style="margin: 0; font-size: 15px; color: #4A403B">Places limitées · réservation <a href="#ateliers" style="color: #C4441A; text-decoration: underline; text-underline-offset: 2px">en ligne</a> ou par téléphone (<a href="tel:+33623880502" style="color: #C4441A; text-decoration: underline; text-underline-offset: 2px">+33 6 23 88 05 02</a>)</p>
       </div>
     </div>
   </section>
@@ -270,58 +294,58 @@
     <div style="max-width: 1080px; margin: 0 auto">
       <div style="display: flex; flex-direction: column; align-items: center; text-align: center; gap: 18px; margin-bottom: 56px; max-width: 640px; margin-left: auto; margin-right: auto">
         <div style="font-size: 18px; letter-spacing: 0.3em; color: #E8B95C">★ ★ ★</div>
-        <h2 id="t-carte" style="margin: 0; font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: 58px; line-height: 1.08; letter-spacing: 0.02em; text-transform: uppercase; background-image: linear-gradient(94deg, #E86A22 0%, #F5A62E 50%, #E3B98C 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent">Ta Carte Flow</h2>
-        <p style="margin: 0; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 22px; color: #F7F1E7">Tes étoiles · Tes envies · Ton rythme</p>
-        <p style="margin: 0; font-size: 18px; line-height: 1.75; color: #DCD2C6; text-wrap: pretty">Les Ateliers du Vivant ont été imaginés pour te permettre de circuler entre différentes pratiques et de <strong style="font-weight: 500; color: #F7F1E7">composer un parcours adapté à ton rythme</strong>.</p>
+        <h2 data-i18n="carte-1" id="t-carte" style="margin: 0; font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: 58px; line-height: 1.08; letter-spacing: 0.02em; text-transform: uppercase; background-image: linear-gradient(94deg, #E86A22 0%, #F5A62E 50%, #E3B98C 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent">Ta Carte Flow</h2>
+        <p data-i18n="carte-2" style="margin: 0; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 22px; color: #F7F1E7">Tes étoiles · Tes envies · Ton rythme</p>
+        <p data-i18n="carte-3" style="margin: 0; font-size: 18px; line-height: 1.75; color: #DCD2C6; text-wrap: pretty">Les Ateliers du Vivant ont été imaginés pour te permettre de circuler entre différentes pratiques et de <strong style="font-weight: 500; color: #F7F1E7">composer un parcours adapté à ton rythme</strong>.</p>
       </div>
 
-      <div style="font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #A99C8E; text-align: center; margin-bottom: 14px">Combien d’étoiles pour quel atelier ?</div>
+      <div data-i18n="carte-4" style="font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #A99C8E; text-align: center; margin-bottom: 14px">Combien d’étoiles pour quel atelier ?</div>
 
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-bottom: 28px">
         <div style="border: 1px solid #4A403B; border-radius: 18px; padding: 30px 32px; display: flex; flex-direction: column; gap: 10px">
-          <div style="font-size: 20px; letter-spacing: 0.1em; color: #E8B95C">★ 1 étoile</div>
-          <div style="font-size: 17px; color: #DCD2C6">Flow Découverte · Dance Flow · Flow Créatif</div>
+          <div data-i18n="carte-5" style="font-size: 20px; letter-spacing: 0.1em; color: #E8B95C">★ 1 étoile</div>
+          <div data-i18n="carte-6" style="font-size: 17px; color: #DCD2C6">Flow Découverte · Dance Flow · Flow Créatif</div>
         </div>
         <div style="border: 1px solid #4A403B; border-radius: 18px; padding: 30px 32px; display: flex; flex-direction: column; gap: 10px">
-          <div style="font-size: 20px; letter-spacing: 0.1em; color: #E8B95C">★★ 2 étoiles</div>
+          <div data-i18n="carte-7" style="font-size: 20px; letter-spacing: 0.1em; color: #E8B95C">★★ 2 étoiles</div>
           <div style="font-size: 17px; color: #DCD2C6">Sweet Yoga Flow · Nidra Gong Flow</div>
         </div>
       </div>
 
-      <div style="font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #A99C8E; text-align: center; margin-bottom: 14px; margin-top: 40px">Choisis ta formule</div>
+      <div data-i18n="carte-8" style="font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #A99C8E; text-align: center; margin-bottom: 14px; margin-top: 40px">Choisis ta formule</div>
 
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 28px">
         <div style="background-image: linear-gradient(165deg, #3A2B28 0%, #33261F 100%), linear-gradient(96deg, #E86A22 0%, #F5A62E 50%, #E3B98C 100%); background-origin: border-box; background-clip: padding-box, border-box; border: 2px solid transparent; border-radius: 24px; padding: 44px 40px; display: flex; flex-direction: column; gap: 18px">
-          <div style="font-family: Newsreader, Georgia, serif; font-size: 26px; font-weight: 400; letter-spacing: 0.03em; text-transform: uppercase; background-image: linear-gradient(94deg, #E86A22 0%, #F5A62E 50%, #E3B98C 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent">Carte Flow · 1 mois</div>
+          <div data-i18n="carte-9" style="font-family: Newsreader, Georgia, serif; font-size: 26px; font-weight: 400; letter-spacing: 0.03em; text-transform: uppercase; background-image: linear-gradient(94deg, #E86A22 0%, #F5A62E 50%, #E3B98C 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent">Carte Flow · 1 mois</div>
           <div style="font-family: Newsreader, Georgia, serif; font-size: 52px; line-height: 1; color: #F7F1E7">6 <span style="color: #E8B95C">★</span> 95 €</div>
-          <p style="margin: 0; min-height: 50px; font-size: 18px; line-height: 1.3; color: #F7F1E7"><strong style="font-weight: 500">Compose ton mois selon tes besoins.</strong></p>
+          <p style="margin: 0; min-height: 50px; font-size: 18px; line-height: 1.3; color: #F7F1E7"><strong data-i18n="carte-10" style="font-weight: 500">Compose ton mois selon tes besoins.</strong></p>
           <div style="display: flex; flex-direction: column; gap: 8px; font-size: 16px; line-height: 1.6; color: #DCD2C6">
-            <span style="font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: #A99C8E">Par exemple</span>
+            <span data-i18n="carte-11" style="font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: #A99C8E">Par exemple</span>
             <span>2 Sweet Yoga + 1 Nidra</span>
-            <span style="color: #A99C8E; font-style: italic">ou</span>
-            <span>1 Sweet Yoga + 1 Nidra + 1 Dance + 1 Flow Découverte</span>
+            <span data-i18n="carte-12" style="color: #A99C8E; font-style: italic">ou</span>
+            <span data-i18n="carte-13">1 Sweet Yoga + 1 Nidra + 1 Dance + 1 Flow Découverte</span>
           </div>
-          <a href="https://www.helloasso.com/associations/synergie-06/evenements/carte-flow-etoiles" target="_blank" rel="noopener" style="align-self: flex-start; margin-top: 12px; padding: 16px 30px; border-radius: 999px; background: #F7F1E7; color: #2B2220; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase">Choisir ma Carte Flow</a>
+          <a data-i18n="carte-14" href="https://www.helloasso.com/associations/synergie-06/evenements/carte-flow-etoiles" target="_blank" rel="noopener" style="align-self: flex-start; margin-top: 12px; padding: 16px 30px; border-radius: 999px; background: #F7F1E7; color: #2B2220; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase">Choisir ma Carte Flow</a>
         </div>
         <div style="background-image: linear-gradient(165deg, #3A2B28 0%, #33261F 100%), linear-gradient(96deg, #E86A22 0%, #F5A62E 50%, #E3B98C 100%); background-origin: border-box; background-clip: padding-box, border-box; border: 2px solid transparent; border-radius: 24px; padding: 44px 40px; display: flex; flex-direction: column; gap: 18px">
-          <div style="font-family: Newsreader, Georgia, serif; font-size: 26px; font-weight: 400; letter-spacing: 0.03em; text-transform: uppercase; background-image: linear-gradient(94deg, #E86A22 0%, #F5A62E 50%, #E3B98C 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent">Carte Flow · 3 mois</div>
+          <div data-i18n="carte-15" style="font-family: Newsreader, Georgia, serif; font-size: 26px; font-weight: 400; letter-spacing: 0.03em; text-transform: uppercase; background-image: linear-gradient(94deg, #E86A22 0%, #F5A62E 50%, #E3B98C 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent">Carte Flow · 3 mois</div>
           <div style="font-family: Newsreader, Georgia, serif; font-size: 52px; line-height: 1; color: #F7F1E7">18 <span style="color: #E8B95C">★</span> 280 €</div>
-          <p style="margin: 0; min-height: 50px; font-size: 18px; line-height: 1.3; color: #F7F1E7"><strong style="font-weight: 500">Un cycle pour installer ton Flow dans la durée.</strong></p>
+          <p style="margin: 0; min-height: 50px; font-size: 18px; line-height: 1.3; color: #F7F1E7"><strong data-i18n="carte-16" style="font-weight: 500">Un cycle pour installer ton Flow dans la durée.</strong></p>
           <div style="display: flex; flex-direction: column; gap: 8px; font-size: 16px; line-height: 1.6; color: #DCD2C6">
-            <span style="font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: #A99C8E">Ton rythme conseillé</span>
-            <span>2 Sweet Yoga + 1 Nidra par mois pendant 3 mois</span>
-            <span>ou compose librement ton parcours avec tes 18 étoiles.</span>
+            <span data-i18n="carte-17" style="font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: #A99C8E">Ton rythme conseillé</span>
+            <span data-i18n="carte-18">2 Sweet Yoga + 1 Nidra par mois pendant 3 mois</span>
+            <span data-i18n="carte-19">ou compose librement ton parcours avec tes 18 étoiles.</span>
           </div>
-          <a href="https://www.helloasso.com/associations/synergie-06/evenements/carte-flow-etoiles" target="_blank" rel="noopener" style="align-self: flex-start; margin-top: 12px; padding: 16px 30px; border-radius: 999px; background: #F7F1E7; color: #2B2220; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase">Choisir ma Carte 3 mois</a>
+          <a data-i18n="carte-20" href="https://www.helloasso.com/associations/synergie-06/evenements/carte-flow-etoiles" target="_blank" rel="noopener" style="align-self: flex-start; margin-top: 12px; padding: 16px 30px; border-radius: 999px; background: #F7F1E7; color: #2B2220; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase">Choisir ma Carte 3 mois</a>
         </div>
       </div>
 
       <div style="margin-top: 48px; padding-top: 40px; border-top: 1px solid #4A403B; display: grid; grid-template-columns: 0.6fr 1.4fr; gap: 48px">
-        <h3 style="margin: 0; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: 30px; color: #E8B95C">Comment ça marche ?</h3>
+        <h3 data-i18n="carte-21" style="margin: 0; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: 30px; color: #E8B95C">Comment ça marche ?</h3>
         <div style="display: flex; flex-direction: column; gap: 20px; font-size: 17px; line-height: 1.75; color: #DCD2C6">
-          <p style="margin: 0; text-wrap: pretty">Avec ta Carte Flow, tu peux réserver tes ateliers à l’avance et sécuriser tes places.</p>
-          <p style="margin: 0; text-wrap: pretty">Tu peux également choisir au fil de tes envies et réserver jusqu’au mercredi soir précédant l’atelier, dans la limite des places disponibles.</p>
-          <p style="margin: 0; text-wrap: pretty">La Carte Flow, c’est aussi <strong style="font-weight: 500; color: #E8B95C">rejoindre l’esprit d’un club du Vivant</strong>. Des propositions ponctuelles pourront enrichir la programmation au fil de l’année : ateliers spéciaux, expériences créatives, rencontres ou sorties dans la nature.</p>
+          <p data-i18n="carte-22" style="margin: 0; text-wrap: pretty">Avec ta Carte Flow, tu peux réserver tes ateliers à l’avance et sécuriser tes places.</p>
+          <p data-i18n="carte-23" style="margin: 0; text-wrap: pretty">Tu peux également choisir au fil de tes envies et réserver jusqu’au mercredi soir précédant l’atelier, dans la limite des places disponibles.</p>
+          <p data-i18n="carte-24" style="margin: 0; text-wrap: pretty">La Carte Flow, c’est aussi <strong style="font-weight: 500; color: #E8B95C">rejoindre l’esprit d’un club du Vivant</strong>. Des propositions ponctuelles pourront enrichir la programmation au fil de l’année : ateliers spéciaux, expériences créatives, rencontres ou sorties dans la nature.</p>
         </div>
       </div>
     </div>
@@ -329,20 +353,20 @@
 
   <section id="apropos" aria-labelledby="t-apropos" style="padding: 120px 72px 60px; background: linear-gradient(180deg, #EFF1E4 0%, #EDF0E1 26%, #EDF0E1 100%)">
     <div style="max-width: 1080px; margin: 0 auto; display: grid; grid-template-columns: 1.15fr 0.85fr; column-gap: 64px; row-gap: 24px; align-items: center">
-      <div class="bio-photo" style="grid-column: 1; grid-row: 1 / 3; align-self: stretch; position: relative; border-radius: 28px; min-height: 540px; overflow: hidden"><img src="assets/img/portrait-minh-tam-montgolfieres.jpg" width="1080" height="1350" loading="lazy" alt="Portrait de Minh-Tâm" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%">
+      <div class="bio-photo" style="grid-column: 1; grid-row: 1 / 3; align-self: stretch; position: relative; border-radius: 28px; min-height: 540px; overflow: hidden"><img data-i18n-alt="attr-7" src="assets/img/portrait-minh-tam-montgolfieres.jpg" width="1080" height="1350" loading="lazy" alt="Portrait de Minh-Tâm" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%">
       </div>
       <div class="bio-body" style="grid-column: 2; grid-row: 1 / 3; display: flex; flex-direction: column; gap: 24px; justify-content: center">
-        <div style="font-size: 12px; letter-spacing: 0.28em; text-transform: uppercase; color: #5F7A3B">Qui suis-je ?</div>
+        <div data-i18n="apropos-1" style="font-size: 12px; letter-spacing: 0.28em; text-transform: uppercase; color: #5F7A3B">Qui suis-je ?</div>
         <h2 id="t-apropos" style="margin: 0; font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: 38px; line-height: 1.16; background-image: linear-gradient(94deg, #C4441A 0%, #E86A22 46%, #F5A62E 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent">Les Ateliers du Vivant by Minh-Tâm</h2>
-        <p style="margin: 0; font-family: Georgia, 'Times New Roman', serif; font-style: italic; font-weight: 700; font-size: 17px; line-height: 1.7; color: #7C7168">Des espaces imaginés et animés par Minh-Tâm, créatrice d’espaces du Vivant, professeure de yoga, danseuse et exploratrice du mouvement.</p>
-        <p style="margin: 0; font-size: 18px; line-height: 1.75; color: #4A403B; text-wrap: pretty">J’imagine des expériences qui font dialoguer <strong style="font-weight: 500; color: #2B2220">le corps, la créativité, le mouvement et notre capacité à nous renouveler</strong>.</p>
-        <p style="margin: 0; font-size: 18px; line-height: 1.75; color: #4A403B; text-wrap: pretty">Les Ateliers du Vivant sont nés de cette envie : créer des espaces pour expérimenter plutôt que performer, retrouver tes sensations, explorer de nouvelles ressources et faire davantage de place au vivant dans ton quotidien.</p>
-        <p style="margin: 0; font-size: 18px; line-height: 1.75; color: #4A403B; text-wrap: pretty">Chaque atelier devient ainsi une expérience singulière, une porte d’entrée vers soi. Les cycles de la lune et des saisons inspirent les intentions des ateliers, comme un fil de connexion au vivant.</p>
-        <p style="margin: 0; font-size: 18px; line-height: 1.75; color: #4A403B; text-wrap: pretty">Les Ateliers du Vivant te proposent plusieurs chemins pour explorer, traverser, te renouveler et te sentir pleinement vivant·e.</p>
-        <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 8px"><span style="font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 34px; letter-spacing: 0.01em; background-image: linear-gradient(96deg, #EC641A 0%, #E8B95C 42%, #CC3769 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent">With love &amp; joy</span><img src="assets/img/signature-minh-tam-transparent.png" width="400" height="200" loading="lazy" alt="Signature de Minh-Tâm" style="width: 210px; height: auto; display: block"></div>
+        <p data-i18n="apropos-2" style="margin: 0; font-family: Georgia, 'Times New Roman', serif; font-style: italic; font-weight: 700; font-size: 17px; line-height: 1.7; color: #7C7168">Des espaces imaginés et animés par Minh-Tâm, créatrice d’espaces du Vivant, professeure de yoga, danseuse et exploratrice du mouvement.</p>
+        <p data-i18n="apropos-3" style="margin: 0; font-size: 18px; line-height: 1.75; color: #4A403B; text-wrap: pretty">J’imagine des expériences qui font dialoguer <strong style="font-weight: 500; color: #2B2220">le corps, la créativité, le mouvement et notre capacité à nous renouveler</strong>.</p>
+        <p data-i18n="apropos-4" style="margin: 0; font-size: 18px; line-height: 1.75; color: #4A403B; text-wrap: pretty">Les Ateliers du Vivant sont nés de cette envie : créer des espaces pour expérimenter plutôt que performer, retrouver tes sensations, explorer de nouvelles ressources et faire davantage de place au vivant dans ton quotidien.</p>
+        <p data-i18n="apropos-5" style="margin: 0; font-size: 18px; line-height: 1.75; color: #4A403B; text-wrap: pretty">Chaque atelier devient ainsi une expérience singulière, une porte d’entrée vers soi. Les cycles de la lune et des saisons inspirent les intentions des ateliers, comme un fil de connexion au vivant.</p>
+        <p data-i18n="apropos-6" style="margin: 0; font-size: 18px; line-height: 1.75; color: #4A403B; text-wrap: pretty">Les Ateliers du Vivant te proposent plusieurs chemins pour explorer, traverser, te renouveler et te sentir pleinement vivant·e.</p>
+        <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 8px"><span style="font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 34px; letter-spacing: 0.01em; background-image: linear-gradient(96deg, #EC641A 0%, #E8B95C 42%, #CC3769 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent">With love &amp; joy</span><img data-i18n-alt="attr-8" src="assets/img/signature-minh-tam-transparent.png" width="400" height="200" loading="lazy" alt="Signature de Minh-Tâm" style="width: 210px; height: auto; display: block"></div>
         <div class="bio-encart" style="margin-top: 32px; padding: 32px 36px; background: #FFFDF8; border: 1px solid #E7DECB; border-radius: 24px; box-shadow: 0 10px 30px rgba(43,34,32,0.08); display: flex; flex-direction: column; gap: 10px; text-align: center">
-          <div style="font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; color: #C22E22">Un accompagnement rien que pour toi</div>
-          <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #4A403B">Tu ressens le besoin d’un accompagnement individuel et personnalisé ? Échangeons ensemble pour voir ce qui te conviendrait.</p>
+          <div data-i18n="apropos-7" style="font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; color: #C22E22">Un accompagnement rien que pour toi</div>
+          <p data-i18n="apropos-8" style="margin: 0; font-size: 17px; line-height: 1.7; color: #4A403B">Tu ressens le besoin d’un accompagnement individuel et personnalisé ? Échangeons ensemble pour voir ce qui te conviendrait.</p>
           <p style="margin: 8px 0 0; font-size: 16px; font-weight: 500; color: #2B2220">Minh-Tâm · <a href="tel:+33623880502" style="color: #C4441A; text-decoration: none">+33 6 23 88 05 02</a></p>
         </div>
       </div>
@@ -351,36 +375,36 @@
 
   <section id="lieu" aria-labelledby="t-lieu" style="padding: 60px 72px 70px; background: linear-gradient(180deg, #EDF0E1 0%, #F6F6EC 18%, #FFFDF8 42%, #FFFDF8 100%)">
     <div style="max-width: 1120px; margin: 0 auto">
-      <h2 id="t-lieu" style="margin: 0 0 48px; font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: 50px; background-image: linear-gradient(94deg, #C4441A 0%, #E86A22 46%, #F5A62E 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent">Le lieu</h2>
+      <h2 data-i18n="lieu-1" id="t-lieu" style="margin: 0 0 48px; font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: 50px; background-image: linear-gradient(94deg, #C4441A 0%, #E86A22 46%, #F5A62E 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent">Le lieu</h2>
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px">
         <div style="background: #FFFDF8; border: 1px solid #E7DECB; border-radius: 24px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 2px 12px rgba(43,34,32,0.05)">
-          <div style="position: relative; height: 240px; overflow: hidden"><img src="assets/img/maison-des-orangers-2026.jpg" width="640" height="640" loading="lazy" alt="La Maison des Orangers, façade et petit jardin" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover"></div>
+          <div style="position: relative; height: 240px; overflow: hidden"><img data-i18n-alt="attr-9" src="assets/img/maison-des-orangers-2026.jpg" width="640" height="640" loading="lazy" alt="La Maison des Orangers, façade et petit jardin" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover"></div>
           <div style="padding: 34px 36px; display: flex; flex-direction: column; gap: 12px">
-            <div style="font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; color: #C22E22">Le cocon méditerranéen</div>
+            <div data-i18n="lieu-2" style="font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; color: #C22E22">Le cocon méditerranéen</div>
             <h3 style="margin: 0; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: 30px; color: #C4441A">La Maison des Orangers</h3>
-            <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #4A403B">Au cœur de la jolie petite rue des Oliviers, au Cros de Cagnes.</p>
+            <p data-i18n="lieu-3" style="margin: 0; font-size: 17px; line-height: 1.7; color: #4A403B">Au cœur de la jolie petite rue des Oliviers, au Cros de Cagnes.</p>
             <div style="margin-top: 8px; padding-top: 16px; border-top: 1px solid #EFE6DA; display: flex; flex-direction: column; gap: 6px; font-size: 15px; line-height: 1.6; color: #4A403B">
-              <span style="font-weight: 500; color: #2B2220">Slow Flow · Sweet Yoga · Nidra Gong · Flow créatif</span>
+              <span data-i18n="lieu-4" style="font-weight: 500; color: #2B2220">Slow Flow · Sweet Yoga · Nidra Gong · Flow créatif</span>
               <span>20, rue des Oliviers</span>
-              <span style="color: #7C7168">Parking Matteï · Gare TER à 10 min</span>
-              <span style="color: #7C7168">Bus 9 ou 620 · arrêt Les Oliviers / Tritons</span>
+              <span data-i18n="lieu-5" style="color: #7C7168">Parking Matteï · Gare TER à 10 min</span>
+              <span data-i18n="lieu-6" style="color: #7C7168">Bus 9 ou 620 · arrêt Les Oliviers / Tritons</span>
             </div>
-            <a href="https://www.google.com/maps?q=20%2C+rue+des+Oliviers%2C+Le+Cros-de-Cagnes" target="_blank" rel="noopener" style="margin-top: 4px; font-size: 14px; font-weight: 500; color: #C4441A; text-decoration: underline; text-underline-offset: 3px">📍 Voir sur Google Maps</a>
+            <a data-i18n="lieu-7" href="https://www.google.com/maps?q=20%2C+rue+des+Oliviers%2C+Le+Cros-de-Cagnes" target="_blank" rel="noopener" style="margin-top: 4px; font-size: 14px; font-weight: 500; color: #C4441A; text-decoration: underline; text-underline-offset: 3px">📍 Voir sur Google Maps</a>
           </div>
         </div>
         <div style="background: #FFFDF8; border: 1px solid #E7DECB; border-radius: 24px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 2px 12px rgba(43,34,32,0.05)">
-          <div style="position: relative; height: 240px; overflow: hidden"><img src="assets/img/maison-de-la-mer-2026.jpg" width="640" height="640" loading="lazy" alt="La Maison de la Mer, salle avec vue sur la mer" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover"></div>
+          <div style="position: relative; height: 240px; overflow: hidden"><img data-i18n-alt="attr-10" src="assets/img/maison-de-la-mer-2026.jpg" width="640" height="640" loading="lazy" alt="La Maison de la Mer, salle avec vue sur la mer" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover"></div>
           <div style="padding: 34px 36px; display: flex; flex-direction: column; gap: 12px">
-            <div style="font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; color: #C22E22">On prend le large</div>
+            <div data-i18n="lieu-8" style="font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase; color: #C22E22">On prend le large</div>
             <h3 style="margin: 0; font-family: Newsreader, Georgia, serif; font-weight: 400; font-size: 30px; color: #C4441A">La Maison de la Mer</h3>
-            <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #4A403B">Une salle lumineuse de 300 m² avec vue sur la mer, où la danse peut prendre toute sa place.</p>
+            <p data-i18n="lieu-9" style="margin: 0; font-size: 17px; line-height: 1.7; color: #4A403B">Une salle lumineuse de 300 m² avec vue sur la mer, où la danse peut prendre toute sa place.</p>
             <div style="margin-top: 8px; padding-top: 16px; border-top: 1px solid #EFE6DA; display: flex; flex-direction: column; gap: 6px; font-size: 15px; line-height: 1.6; color: #4A403B">
               <span style="font-weight: 500; color: #2B2220">Dance Flow</span>
               <span>3, rue du Capitaine de Frégate H. Vial</span>
-              <span style="color: #7C7168">Parking du port · Gare TER à 10 min</span>
-              <span style="color: #7C7168">Bus 9 ou 620 · arrêt Tritons / Val Fleury</span>
+              <span data-i18n="lieu-10" style="color: #7C7168">Parking du port · Gare TER à 10 min</span>
+              <span data-i18n="lieu-11" style="color: #7C7168">Bus 9 ou 620 · arrêt Tritons / Val Fleury</span>
             </div>
-            <a href="https://www.google.com/maps?q=3%2C+rue+du+Capitaine+de+Fr%C3%A9gate+H.+Vial%2C+Le+Cros-de-Cagnes" target="_blank" rel="noopener" style="margin-top: 4px; font-size: 14px; font-weight: 500; color: #C4441A; text-decoration: underline; text-underline-offset: 3px">📍 Voir sur Google Maps</a>
+            <a data-i18n="lieu-12" href="https://www.google.com/maps?q=3%2C+rue+du+Capitaine+de+Fr%C3%A9gate+H.+Vial%2C+Le+Cros-de-Cagnes" target="_blank" rel="noopener" style="margin-top: 4px; font-size: 14px; font-weight: 500; color: #C4441A; text-decoration: underline; text-underline-offset: 3px">📍 Voir sur Google Maps</a>
           </div>
         </div>
       </div>
@@ -388,52 +412,52 @@
         <div style="height: 3px; width: 96px; border-radius: 999px; background-image: linear-gradient(90deg, #C4441A 0%, #F5A62E 100%)"></div>
         <div style="margin-top: 26px; display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 48px; align-items: center">
           <div>
-            <p style="margin: 0; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 22px; color: #5F7A3B">Un cadre privilégié</p>
-            <p style="margin: 8px 0 0; font-family: Newsreader, Georgia, serif; font-size: 22px; line-height: 1.3; color: #2B2220">Si les places sont limitées, c’est volontaire.</p>
+            <p data-i18n="lieu-13" style="margin: 0; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 22px; color: #5F7A3B">Un cadre privilégié</p>
+            <p data-i18n="lieu-14" style="margin: 8px 0 0; font-family: Newsreader, Georgia, serif; font-size: 22px; line-height: 1.3; color: #2B2220">Si les places sont limitées, c’est volontaire.</p>
           </div>
           <div style="display: flex; flex-direction: column; gap: 20px">
-            <p style="margin: 0; font-size: 17px; line-height: 1.75; color: #4A403B; text-wrap: pretty">Je souhaite préserver des espaces où je peux réellement être présente pour chacun·e, écouter et adapter mes propositions.</p>
-            <p style="margin: 0; font-size: 17px; line-height: 1.75; color: #4A403B; text-wrap: pretty">En Sweet Yoga, cela signifie pouvoir accompagner un placement ou proposer une adaptation. Dans les ateliers créatifs, cela me permet de prendre le temps d’écouter et de laisser à chacun·e son espace. Dans les autres pratiques, cela permet de préserver <strong style="font-weight: 500; color: #2B2220">une qualité de présence et une atmosphère propices à l’expérience</strong>.</p>
-            <p style="margin: 0; font-size: 17px; line-height: 1.75; color: #4A403B; text-wrap: pretty">Tu peux venir découvrir un atelier ponctuellement. Mais si tu choisis de revenir régulièrement, je peux mieux connaître ton cheminement et créer <strong style="font-weight: 500; color: #2B2220">une véritable continuité d’un atelier à l’autre</strong>.</p>
-            <p style="margin: 6px 0 0; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 20px; line-height: 1.6; color: #5F7A3B">C’est cette qualité de relation et d’accompagnement que je souhaite préserver.</p>
+            <p data-i18n="lieu-15" style="margin: 0; font-size: 17px; line-height: 1.75; color: #4A403B; text-wrap: pretty">Je souhaite préserver des espaces où je peux réellement être présente pour chacun·e, écouter et adapter mes propositions.</p>
+            <p data-i18n="lieu-16" style="margin: 0; font-size: 17px; line-height: 1.75; color: #4A403B; text-wrap: pretty">En Sweet Yoga, cela signifie pouvoir accompagner un placement ou proposer une adaptation. Dans les ateliers créatifs, cela me permet de prendre le temps d’écouter et de laisser à chacun·e son espace. Dans les autres pratiques, cela permet de préserver <strong style="font-weight: 500; color: #2B2220">une qualité de présence et une atmosphère propices à l’expérience</strong>.</p>
+            <p data-i18n="lieu-17" style="margin: 0; font-size: 17px; line-height: 1.75; color: #4A403B; text-wrap: pretty">Tu peux venir découvrir un atelier ponctuellement. Mais si tu choisis de revenir régulièrement, je peux mieux connaître ton cheminement et créer <strong style="font-weight: 500; color: #2B2220">une véritable continuité d’un atelier à l’autre</strong>.</p>
+            <p data-i18n="lieu-18" style="margin: 6px 0 0; font-family: Newsreader, Georgia, serif; font-style: italic; font-size: 20px; line-height: 1.6; color: #5F7A3B">C’est cette qualité de relation et d’accompagnement que je souhaite préserver.</p>
           </div>
         </div>
       </div>
       <div style="margin-top: 40px; display: flex; justify-content: center">
-        <a href="#calendrier" style="padding: 17px 32px; border-radius: 999px; border: 1px solid #C4441A; color: #C4441A; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase">Voir le calendrier</a>
+        <a data-i18n="lieu-19" href="#calendrier" style="padding: 17px 32px; border-radius: 999px; border: 1px solid #C4441A; color: #C4441A; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase">Voir le calendrier</a>
       </div>
     </div>
   </section>
 
   <section id="newsletter" aria-labelledby="t-newsletter" style="padding: 70px 72px; background: linear-gradient(180deg, #FFFDF8 0%, #F8F2E4 38%, #F8F2E4 72%, #FAF7EF 100%)">
     <div style="max-width: 560px; margin: 0 auto; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 18px">
-      <h2 id="t-newsletter" style="margin: 0; font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: 38px; line-height: 1.15; color: #2B2220">Les actualités des Ateliers du Vivant 🌿</h2>
-      <p style="margin: 0; font-size: 17px; line-height: 1.7; color: #4A403B">Reçois les actualités des Ateliers du Vivant, les prochains rendez-vous et les nouveautés au fil des saisons.</p>
+      <h2 data-i18n="newsletter-1" id="t-newsletter" style="margin: 0; font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: 38px; line-height: 1.15; color: #2B2220">Les actualités des Ateliers du Vivant 🌿</h2>
+      <p data-i18n="newsletter-2" style="margin: 0; font-size: 17px; line-height: 1.7; color: #4A403B">Reçois les actualités des Ateliers du Vivant, les prochains rendez-vous et les nouveautés au fil des saisons.</p>
       <form id="newsletter-form" style="margin-top: 12px; width: 100%; display: flex; flex-direction: column; gap: 12px; text-align: left">
-        <input type="text" name="prenom" placeholder="Prénom" required style="padding: 14px 18px; border-radius: 12px; border: 1px solid #E7DECB; font-family: Outfit, sans-serif; font-size: 15px">
-        <input type="text" name="nom" placeholder="Nom (facultatif)" style="padding: 14px 18px; border-radius: 12px; border: 1px solid #E7DECB; font-family: Outfit, sans-serif; font-size: 15px">
-        <input type="email" name="email" placeholder="E-mail" required style="padding: 14px 18px; border-radius: 12px; border: 1px solid #E7DECB; font-family: Outfit, sans-serif; font-size: 15px">
-        <input type="tel" name="telephone" placeholder="Téléphone (facultatif)" style="padding: 14px 18px; border-radius: 12px; border: 1px solid #E7DECB; font-family: Outfit, sans-serif; font-size: 15px">
+        <input data-i18n-placeholder="attr-11" type="text" name="prenom" placeholder="Prénom" required style="padding: 14px 18px; border-radius: 12px; border: 1px solid #E7DECB; font-family: Outfit, sans-serif; font-size: 15px">
+        <input data-i18n-placeholder="attr-12" type="text" name="nom" placeholder="Nom (facultatif)" style="padding: 14px 18px; border-radius: 12px; border: 1px solid #E7DECB; font-family: Outfit, sans-serif; font-size: 15px">
+        <input data-i18n-placeholder="attr-13" type="email" name="email" placeholder="E-mail" required style="padding: 14px 18px; border-radius: 12px; border: 1px solid #E7DECB; font-family: Outfit, sans-serif; font-size: 15px">
+        <input data-i18n-placeholder="attr-14" type="tel" name="telephone" placeholder="Téléphone (facultatif)" style="padding: 14px 18px; border-radius: 12px; border: 1px solid #E7DECB; font-family: Outfit, sans-serif; font-size: 15px">
         <input type="text" name="site" tabindex="-1" autocomplete="off" style="position:absolute; left:-9999px; width:1px; height:1px; opacity:0" aria-hidden="true">
-        <button type="submit" style="margin-top: 6px; padding: 16px 32px; border-radius: 999px; border: none; background: #C4441A; color: #FAF7EF; font-size: 13px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer">Je m’inscris</button>
+        <button data-i18n="newsletter-3" type="submit" style="margin-top: 6px; padding: 16px 32px; border-radius: 999px; border: none; background: #C4441A; color: #FAF7EF; font-size: 13px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer">Je m’inscris</button>
         <p id="newsletter-status" role="status" style="margin: 0; font-size: 14px; line-height: 1.6; display: none"></p>
       </form>
-      <p style="margin: 0; font-size: 13px; line-height: 1.6; color: #7C7168">En t’inscrivant, tu acceptes de recevoir les actualités des Ateliers du Vivant. Tu peux te désinscrire à tout moment grâce au lien présent dans chaque newsletter.</p>
+      <p data-i18n="newsletter-4" style="margin: 0; font-size: 13px; line-height: 1.6; color: #7C7168">En t’inscrivant, tu acceptes de recevoir les actualités des Ateliers du Vivant. Tu peux te désinscrire à tout moment grâce au lien présent dans chaque newsletter.</p>
     </div>
   </section>
 
   <section id="contact" aria-labelledby="t-contact" style="padding: 70px 72px 120px; background: linear-gradient(180deg, #FAF7EF 0%, #F3ECDA 45%, #EBDFC6 100%); text-align: center">
     <div style="max-width: 820px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 26px">
-      <h2 id="t-contact" style="margin: 0; font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: 58px; line-height: 1.08; background-image: linear-gradient(94deg, #C4441A 0%, #E86A22 46%, #F5A62E 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent">Quel sera ton prochain Flow ?</h2>
+      <h2 data-i18n="contact-1" id="t-contact" style="margin: 0; font-family: Newsreader, Georgia, serif; font-weight: 300; font-size: 58px; line-height: 1.08; background-image: linear-gradient(94deg, #C4441A 0%, #E86A22 46%, #F5A62E 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent">Quel sera ton prochain Flow ?</h2>
       <div class="contact-icons" style="display: grid; grid-template-columns: repeat(5, 1fr); justify-items: center; align-items: start; gap: 22px; margin: 10px auto 0; width: 100%; max-width: 660px">
-        <span style="display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%; text-align: center"><img src="assets/img/b-dance-flow.png" width="512" height="512" loading="lazy" alt="" style="width: 52px; height: 52px; display: block"><span style="font-size: 15px; letter-spacing: 0.1em; text-transform: uppercase; color: #A8380F">Bouger</span></span>
-        <span style="display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%; text-align: center"><img src="assets/img/b-sweet-yoga-flow.png" width="512" height="512" loading="lazy" alt="" style="width: 52px; height: 52px; display: block"><span style="font-size: 15px; letter-spacing: 0.1em; text-transform: uppercase; color: #8F5A08">Renforcer</span></span>
-        <span style="display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%; text-align: center"><img src="assets/img/b-nidra-gong-flow.png" width="512" height="512" loading="lazy" alt="" style="width: 52px; height: 52px; display: block"><span style="font-size: 15px; letter-spacing: 0.1em; text-transform: uppercase; color: #146B5A">Ralentir</span></span>
-        <span style="display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%; text-align: center"><img src="assets/img/b-flow-creatif-ecriture.png" width="512" height="512" loading="lazy" alt="" style="width: 52px; height: 52px; display: block"><span style="font-size: 15px; letter-spacing: 0.1em; text-transform: uppercase; color: #744A6D">Créer</span></span>
-        <span style="display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%; text-align: center"><img src="assets/img/motif-vivant-vert-3.png" width="512" height="512" decoding="async" alt="" style="width: 52px; height: 52px; display: block"><span style="font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #6E7A3E">RESSOURCER</span></span>
+        <span style="display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%; text-align: center"><img src="assets/img/b-dance-flow.png" width="512" height="512" loading="lazy" alt="" style="width: 52px; height: 52px; display: block"><span data-i18n="contact-2" style="font-size: 15px; letter-spacing: 0.1em; text-transform: uppercase; color: #A8380F">Bouger</span></span>
+        <span style="display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%; text-align: center"><img src="assets/img/b-sweet-yoga-flow.png" width="512" height="512" loading="lazy" alt="" style="width: 52px; height: 52px; display: block"><span data-i18n="contact-3" style="font-size: 15px; letter-spacing: 0.1em; text-transform: uppercase; color: #8F5A08">Renforcer</span></span>
+        <span style="display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%; text-align: center"><img src="assets/img/b-nidra-gong-flow.png" width="512" height="512" loading="lazy" alt="" style="width: 52px; height: 52px; display: block"><span data-i18n="contact-4" style="font-size: 15px; letter-spacing: 0.1em; text-transform: uppercase; color: #146B5A">Ralentir</span></span>
+        <span style="display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%; text-align: center"><img src="assets/img/b-flow-creatif-ecriture.png" width="512" height="512" loading="lazy" alt="" style="width: 52px; height: 52px; display: block"><span data-i18n="contact-5" style="font-size: 15px; letter-spacing: 0.1em; text-transform: uppercase; color: #744A6D">Créer</span></span>
+        <span style="display: flex; flex-direction: column; align-items: center; gap: 10px; width: 100%; text-align: center"><img src="assets/img/motif-vivant-vert-3.png" width="512" height="512" decoding="async" alt="" style="width: 52px; height: 52px; display: block"><span data-i18n="contact-6" style="font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #6E7A3E">RESSOURCER</span></span>
       </div>
-      <p style="margin: 0; font-size: 19px; line-height: 1.7; color: #4A403B">Découvre la programmation et choisis le rendez-vous qui te ressemble aujourd’hui.</p>
-      <a href="#calendrier" style="margin-top: 8px; padding: 19px 40px; border-radius: 999px; background: #C4441A; color: #FAF7EF; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase">Voir le calendrier &amp; réserver</a>
+      <p data-i18n="contact-7" style="margin: 0; font-size: 19px; line-height: 1.7; color: #4A403B">Découvre la programmation et choisis le rendez-vous qui te ressemble aujourd’hui.</p>
+      <a data-i18n="contact-8" href="#calendrier" style="margin-top: 8px; padding: 19px 40px; border-radius: 999px; background: #C4441A; color: #FAF7EF; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase">Voir le calendrier &amp; réserver</a>
     </div>
   </section>
   </main>
@@ -448,13 +472,84 @@
         <a href="https://synergieduvivant.com" style="color: #E3B98C">www.synergieduvivant.com</a>
       </div>
       <div style="display: flex; gap: 26px; font-size: 14px">
-        <a href="mentions-legales.html" style="color: #DCD2C6">Mentions légales</a>
-        <a href="confidentialite.html" style="color: #DCD2C6">Confidentialité</a>
+        <a data-i18n="footer-1" href="mentions-legales.html" style="color: #DCD2C6">Mentions légales</a>
+        <a data-i18n="footer-2" href="confidentialite.html" style="color: #DCD2C6">Confidentialité</a>
       </div>
     </div>
   </footer>
 
 </div>
+<script>
+  // Sprachwechsel FR | EN. Franzoesisch steht im HTML, Englisch in content/en.json.
+  (function () {
+    var SPEICHER = 'adlv-lang', ATTRS = ['alt', 'placeholder'];
+    var dict = null, orig = new Map(), titelFr = document.title;
+    var knoepfe = document.querySelectorAll('.lang-switch button');
+    window.adlvT = function (key, fr) {
+      return (document.documentElement.lang === 'en' && dict && dict[key]) || fr;
+    };
+    function laden() {
+      if (dict) return Promise.resolve(dict);
+      return fetch('/content/en.json', { cache: 'no-cache' })
+        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+        .then(function (d) { dict = d; return d; });
+    }
+    function merken(el, feld, wert) {
+      if (!orig.has(el)) orig.set(el, {});
+      var o = orig.get(el);
+      if (!(feld in o)) o[feld] = wert;
+      return o[feld];
+    }
+    function setzen(lang) {
+      var en = lang === 'en';
+      document.querySelectorAll('[data-i18n]').forEach(function (el) {
+        var fr = merken(el, 'html', el.innerHTML);
+        el.innerHTML = (en && dict[el.dataset.i18n]) || fr;
+      });
+      ATTRS.forEach(function (a) {
+        document.querySelectorAll('[data-i18n-' + a + ']').forEach(function (el) {
+          var fr = merken(el, a, el.getAttribute(a));
+          el.setAttribute(a, (en && dict[el.getAttribute('data-i18n-' + a)]) || fr);
+        });
+      });
+      document.documentElement.lang = lang;
+      document.title = (en && dict['meta-title']) || titelFr;
+      knoepfe.forEach(function (b) { b.setAttribute('aria-pressed', b.lang === lang ? 'true' : 'false'); });
+      try { localStorage.setItem(SPEICHER, lang); } catch (e) {}
+    }
+    function wechseln(lang) {
+      if (lang === 'fr') { if (dict) setzen('fr'); else knoepfe.forEach(function (b) { b.setAttribute('aria-pressed', b.lang === 'fr' ? 'true' : 'false'); }); return; }
+      laden().then(function () { setzen('en'); }).catch(function () {}); // ohne Datei bleibt Franzoesisch
+    }
+    knoepfe.forEach(function (b) { b.addEventListener('click', function () { wechseln(b.lang); }); });
+    var gespeichert = null;
+    try { gespeichert = localStorage.getItem(SPEICHER); } catch (e) {}
+    if (gespeichert === 'en') wechseln('en');
+  })();
+</script>
+<script>
+  // Kalenderbild aus content/kalender.json (gepflegt ueber Pages CMS).
+  // Laedt die Datei nicht, bleibt das Bild aus dem HTML stehen (Fallback).
+  (function () {
+    var img = document.getElementById('kalender-bild');
+    if (!img || !window.fetch) return;
+    fetch('/content/kalender.json', { cache: 'no-cache' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        // Nur Bilder aus dem Kalender-Ordner akzeptieren
+        if (!d || typeof d.bild !== 'string' || d.bild.indexOf('/assets/img/kalender/') !== 0) return;
+        img.onload = function () {
+          // Seitenverhaeltnis an das neue Bild anpassen
+          img.setAttribute('width', img.naturalWidth);
+          img.setAttribute('height', img.naturalHeight);
+        };
+        img.src = d.bild;
+        if (d.alt) img.alt = d.alt;
+        document.querySelectorAll('[data-kalender-link]').forEach(function (a) { a.href = d.bild; });
+      })
+      .catch(function () {});
+  })();
+</script>
 <script>
   (function () {
     var burger = document.getElementById('nav-burger');
@@ -470,6 +565,13 @@
     });
     nav.addEventListener('click', function (e) {
       if (e.target.closest('a')) { setOpen(false); }
+    });
+    // Klick ausserhalb (z.B. aufs Logo) oder Esc schliesst das Menue
+    document.addEventListener('click', function (e) {
+      if (nav.getAttribute('data-open') === 'true' && !nav.contains(e.target) && !burger.contains(e.target)) { setOpen(false); }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && nav.getAttribute('data-open') === 'true') { setOpen(false); burger.focus(); }
     });
   })();
 </script>
@@ -497,7 +599,7 @@
       submitBtn.disabled = true;
       status.style.display = 'block';
       status.style.color = '#4A403B';
-      status.textContent = 'Envoi en cours…';
+      status.textContent = adlvT('nl-sending', 'Envoi en cours…');
 
       fetch('/api/newsletter', {
         method: 'POST',
@@ -508,16 +610,16 @@
         .then(function (result) {
           if (result.ok) {
             status.style.color = '#3E6B1F';
-            status.textContent = 'Merci ! Ton inscription est bien prise en compte.';
+            status.textContent = adlvT('nl-success', 'Merci ! Ton inscription est bien prise en compte.');
             form.reset();
           } else {
             status.style.color = '#B3261E';
-            status.textContent = 'Une erreur est survenue. Réessaie, ou écris-nous directement.';
+            status.textContent = adlvT('nl-error', 'Une erreur est survenue. Réessaie, ou écris-nous directement.');
           }
         })
         .catch(function () {
           status.style.color = '#B3261E';
-          status.textContent = 'Une erreur est survenue. Réessaie, ou écris-nous directement.';
+          status.textContent = adlvT('nl-error', 'Une erreur est survenue. Réessaie, ou écris-nous directement.');
         })
         .finally(function () {
           submitBtn.disabled = false;
