@@ -4,3 +4,5 @@ Input/
 *.pdf
 *.csv
 *.backup-*
+.vercel
+.env*
