@@ -54,9 +54,10 @@
 .hv1, .hv2, .hv3, .hv4, .hv5 { position: sticky; top: 96px; margin-bottom: 34px; }
   /* Navigation: immer Menue-Knopf, Box rechtsbuendig */
   .nav-actions { position: relative; display: flex; align-items: center; gap: 16px; }
-  .lang-switch { display: inline-flex; padding: 3px; border: 1px solid #E7DECB; border-radius: 999px; background: #FFFDF8; }
-  .lang-switch button { padding: 6px 11px; border: 0; border-radius: 999px; background: none; color: #7C7168; font: inherit; font-size: 12px; letter-spacing: 0.1em; cursor: pointer; }
-  .lang-switch button[aria-pressed="true"] { background: #FFF6F1; color: #C4441A; font-weight: 500; }
+  .lang-switch { display: inline-flex; align-items: center; color: #2B2220; font-size: 13px; letter-spacing: 0.1em; }
+  .lang-switch button { padding: 8px 6px; border: 0; background: none; color: inherit; font: inherit; font-weight: 400; cursor: pointer; }
+  .lang-switch button[aria-pressed="true"] { font-weight: 600; cursor: default; }
+  .lang-switch span { opacity: 0.35; }
   .nav-reserver { padding: 11px 22px; border-radius: 999px; background: #C4441A; color: #FAF7EF; font-size: 14px; letter-spacing: 0.06em; white-space: nowrap; }
   #nav-burger { display: flex; width: 44px; height: 44px; align-items: center; justify-content: center; padding: 0; border: none; background: none; color: #C4441A; font-family: inherit; font-size: 22px; cursor: pointer; }
   #site-nav { position: absolute; top: calc(100% + 18px); right: 0; display: flex; flex-direction: column; align-items: flex-end; min-width: 210px; padding: 8px 24px; border: 1px solid #E7DECB; border-radius: 18px; background: #FFFDF8; box-shadow: 0 12px 32px rgba(43,34,32,0.12); font-size: 15px; letter-spacing: 0.04em; white-space: nowrap; text-align: right; }
@@ -64,16 +65,14 @@
   #site-nav a { padding: 11px 0; color: #2B2220; }
   #site-nav a:hover { color: #C4441A; }
   @media (max-width: 600px) {
-    header { padding: 12px 12px !important; }
+    html header { padding: 12px 12px !important; gap: 6px !important; }
     header > a:first-child { gap: 8px !important; }
     header > a:first-child img { width: 36px !important; height: 36px !important; }
     header > a:first-child span { max-width: 8.6em; font-size: 13px !important; line-height: 1.25; letter-spacing: 0.08em !important; }
-    .nav-actions { gap: 8px; }
-    /* Sprachknopf kompakt: nur die andere Sprache zeigen */
-    .lang-switch { padding: 0; border: 0; background: none; }
-    .lang-switch button[aria-pressed="true"] { display: none; }
-    .lang-switch button { padding: 8px 4px; font-size: 13px; }
-    .nav-reserver { padding: 9px 14px; font-size: 13px; }
+    .nav-actions { gap: 4px; }
+    .lang-switch { letter-spacing: 0.04em; }
+    .lang-switch button { padding: 8px 3px; }
+    .nav-reserver { padding: 9px 12px; font-size: 13px; letter-spacing: 0.03em; }
     #nav-burger { width: 36px; }
   }
   @media (min-width: 901px) and (max-width: 1109px) {
@@ -129,8 +128,7 @@
     <a href="#" style="display: flex; align-items: center; gap: 14px"><img src="assets/img/logo-ateliers-du-vivant.png" width="310" height="309" alt="Les Ateliers du Vivant" fetchpriority="high" style="width: 44px; height: 44px; display: block"><span style="font-family: Newsreader, Georgia, serif; font-size: 19px; letter-spacing: 0.14em; text-transform: uppercase; color: #C4441A">Les Ateliers du Vivant</span></a>
     <div class="nav-actions">
       <div class="lang-switch" role="group" aria-label="Langue / Language">
-        <button type="button" lang="fr" aria-pressed="true">FR</button>
-        <button type="button" lang="en" aria-pressed="false">EN</button>
+        <button type="button" lang="fr" aria-pressed="true">FR</button><span aria-hidden="true">|</span><button type="button" lang="en" aria-pressed="false">EN</button>
       </div>
       <a href="#ateliers" class="nav-reserver">Réserver</a>
       <button type="button" id="nav-burger" aria-label="Menu" aria-expanded="false" aria-controls="site-nav">≡</button>
@@ -519,6 +517,12 @@
     });
     nav.addEventListener('click', function (e) {
       if (e.target.closest('a')) { setOpen(false); }
+    });
+    // Sprach-Schalter: vorerst nur optisch (noch keine Uebersetzung)
+    document.querySelectorAll('.lang-switch button').forEach(function (btn, i, alle) {
+      btn.addEventListener('click', function () {
+        alle.forEach(function (b) { b.setAttribute('aria-pressed', b === btn ? 'true' : 'false'); });
+      });
     });
     // Klick ausserhalb (z.B. aufs Logo) oder Esc schliesst das Menue
     document.addEventListener('click', function (e) {
